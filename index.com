@@ -1,0 +1,884 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cittadella del Capo — Riviera dei Cedri</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet">
+<style>
+/* ── RESET & BASE ── */
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+:root {
+  --blu:   #0b1f33;
+  --blu2:  #163350;
+  --az:    #4a9ad4;
+  --acqua: #9ecce8;
+  --bianco:#f7fafc;
+  --gr:    rgba(255,255,255,.62);
+  --ln:    rgba(255,255,255,.15);
+}
+body {
+  font-family:'DM Sans', sans-serif;
+  background:var(--blu);
+  color:#fff;
+  overflow-x:hidden;
+}
+
+/* ── TIPOGRAFIA ── */
+.lbl {
+  font-size:.58rem; font-weight:400;
+  letter-spacing:.35em; text-transform:uppercase;
+  color:var(--acqua); display:block;
+  margin-bottom:1rem;
+}
+.ttl {
+  font-family:'Bebas Neue', sans-serif;
+  font-size:clamp(3rem,8vw,7rem);
+  letter-spacing:.04em; line-height:1;
+  margin-bottom:1.5rem; color:#fff;
+}
+.ttl-sm {
+  font-family:'Bebas Neue', sans-serif;
+  font-size:clamp(2rem,5vw,3.8rem);
+  letter-spacing:.04em; line-height:1.05;
+  margin-bottom:1.2rem; color:#fff;
+}
+.bdy {
+  font-size:clamp(.88rem,2.2vw,1rem);
+  font-weight:300; line-height:1.9;
+  color:var(--gr);
+}
+
+/* ── SEZIONE FULLSCREEN CON SFONDO FOTO ── */
+.schermo {
+  min-height:100vh;
+  position:relative;
+  display:flex; flex-direction:column;
+  align-items:center; justify-content:center;
+  text-align:center;
+  padding:6rem 2rem;
+  overflow:hidden;
+}
+.schermo-bg {
+  position:absolute; inset:0;
+  background-size:cover; background-position:center;
+  background-attachment:fixed;
+  transition:opacity .5s;
+}
+/* parallax disabilitato su mobile */
+@media(max-width:768px){
+  .schermo-bg { background-attachment:scroll; }
+}
+.schermo-overlay {
+  position:absolute; inset:0;
+  background:rgba(11,31,51,.72);
+}
+.schermo-cnt {
+  position:relative; z-index:2;
+  max-width:720px; width:100%;
+}
+
+/* ── SEPARATORE ONDA ── */
+.onda {
+  width:100%; overflow:hidden;
+  line-height:0; display:block;
+}
+.onda svg { display:block; width:100%; }
+
+/* ── COPERTINA ── */
+#copertina .schermo-bg {
+  background-image:url('https://raw.githubusercontent.com/cittadellacs/imgcittadella/main/vistaalto.jpg');
+}
+#copertina .schermo-overlay {
+  background:linear-gradient(to bottom, rgba(11,31,51,.55) 0%, rgba(11,31,51,.8) 100%);
+}
+.cop-title {
+  font-family:'Bebas Neue', sans-serif;
+  font-size:clamp(4rem,14vw,11rem);
+  letter-spacing:.03em; line-height:.95;
+  margin-bottom:1.5rem; color:#fff;
+}
+.cop-title span { color:var(--acqua); display:block; }
+.cop-sub {
+  font-size:clamp(.82rem,2vw,.95rem);
+  font-weight:300; letter-spacing:.18em;
+  text-transform:uppercase; color:var(--acqua);
+  margin-bottom:2.5rem;
+}
+.cop-desc {
+  font-size:clamp(.9rem,2.2vw,1.05rem);
+  font-weight:300; line-height:1.85;
+  color:rgba(255,255,255,.72);
+  max-width:500px; margin:0 auto 3rem;
+}
+.soc-pills { display:flex; justify-content:center; gap:.8rem; flex-wrap:wrap; }
+.pill {
+  display:inline-flex; align-items:center; gap:.5rem;
+  padding:.55rem 1.3rem;
+  border:1px solid var(--ln);
+  color:#fff; text-decoration:none;
+  font-size:.75rem; font-weight:400; letter-spacing:.06em;
+  border-radius:100px;
+  backdrop-filter:blur(8px);
+  background:rgba(255,255,255,.06);
+  transition:background .25s, border-color .25s;
+}
+.pill:hover { background:rgba(255,255,255,.14); border-color:var(--acqua); }
+.pill svg { width:13px; height:13px; fill:currentColor; }
+.pill small { font-size:.62rem; color:var(--acqua); margin-left:.2rem; }
+
+/* scroll indicator */
+.scroll-ind {
+  position:absolute; bottom:2.5rem; left:50%;
+  transform:translateX(-50%);
+  display:flex; flex-direction:column; align-items:center; gap:.4rem;
+  color:rgba(255,255,255,.35);
+  font-size:.55rem; letter-spacing:.2em; text-transform:uppercase;
+  z-index:3;
+}
+.scroll-dot {
+  width:1px; height:50px;
+  background:linear-gradient(to bottom, rgba(255,255,255,.5), transparent);
+  animation:sdot 2s ease-in-out infinite;
+}
+@keyframes sdot { 0%,100%{opacity:.3;transform:scaleY(.8)} 50%{opacity:1;transform:scaleY(1)} }
+
+/* ── ZONE ── */
+#zone { background:var(--blu2); }
+#zone .schermo-bg {
+  background-image:url('https://raw.githubusercontent.com/cittadellacs/imgcittadella/main/cittadella.jpg');
+  opacity:.25;
+}
+#zone .schermo-overlay { background:rgba(22,51,80,.65); }
+
+.zone-grid {
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:1px;
+  margin-top:3rem;
+  background:var(--ln);
+  border:1px solid var(--ln);
+}
+@media(max-width:600px){ .zone-grid { grid-template-columns:repeat(2,1fr); } }
+.zona {
+  padding:1.5rem 1rem;
+  background:rgba(11,31,51,.7);
+  text-align:center;
+  transition:background .3s;
+}
+.zona:hover { background:rgba(74,154,212,.12); }
+.zona-n {
+  font-family:'Bebas Neue', sans-serif;
+  font-size:1.1rem; letter-spacing:.05em; color:#fff;
+  margin-bottom:.25rem;
+}
+.zona-pos {
+  font-size:.6rem; font-weight:300;
+  letter-spacing:.15em; text-transform:uppercase;
+  color:var(--acqua);
+}
+
+/* ── LUOGHI ── */
+#luoghi .schermo-bg {
+  background-image:url('https://raw.githubusercontent.com/cittadellacs/imgcittadella/main/im.jpg');
+}
+.luoghi-items {
+  margin-top:3rem;
+  display:flex; flex-direction:column;
+  gap:0; width:100%; max-width:680px; margin-inline:auto;
+  text-align:left;
+}
+.luogo {
+  display:grid; grid-template-columns:2.5rem 1fr;
+  gap:1.2rem; padding:1.6rem 0;
+  border-bottom:1px solid var(--ln);
+  transition:opacity .3s;
+}
+.luogo:hover { opacity:.7; }
+.l-n { font-size:.65rem; font-weight:300; color:var(--acqua); padding-top:.3rem; }
+.l-title {
+  font-family:'Bebas Neue', sans-serif;
+  font-size:1.25rem; letter-spacing:.04em; color:#fff;
+  margin-bottom:.35rem;
+}
+.l-desc { font-size:.86rem; font-weight:300; color:var(--gr); line-height:1.75; }
+
+/* ── ANGOLI SEGRETI ── */
+#segreti {
+  background:var(--blu);
+  padding:8rem 2rem;
+  text-align:center;
+  position:relative; overflow:hidden;
+}
+#segreti::before {
+  content:'';
+  position:absolute; inset:0;
+  background:radial-gradient(ellipse at center, rgba(74,154,212,.08) 0%, transparent 70%);
+  pointer-events:none;
+}
+.segreti-line { width:1px; height:60px; background:linear-gradient(to bottom, transparent, var(--acqua), transparent); margin:2rem auto; }
+
+/* ── CHIESE ── */
+#chiese .schermo-bg {
+  background-image:url('https://raw.githubusercontent.com/cittadellacs/imgcittadella/main/casina.jpg');
+}
+.chiese-items {
+  margin-top:3rem; width:100%;
+  max-width:640px; margin-inline:auto;
+  text-align:left;
+}
+.chiesa {
+  padding:1.5rem 0;
+  border-bottom:1px solid var(--ln);
+}
+.ch-n {
+  font-family:'Bebas Neue', sans-serif;
+  font-size:1.15rem; letter-spacing:.04em;
+  color:#fff; margin-bottom:.35rem;
+}
+.ch-t { font-size:.86rem; font-weight:300; color:var(--gr); line-height:1.75; }
+
+/* ── MARE ── */
+#mare .schermo-bg {
+  background-image:url('https://raw.githubusercontent.com/cittadellacs/imgcittadella/main/vistaalto.jpg');
+}
+.spiagge-list {
+  margin-top:2.5rem; width:100%;
+  max-width:600px; margin-inline:auto;
+  text-align:left;
+}
+.sp { padding:1.3rem 0; border-bottom:1px solid var(--ln); }
+.sp-n {
+  font-family:'Bebas Neue', sans-serif;
+  font-size:1.1rem; letter-spacing:.04em;
+  color:#fff; margin-bottom:.25rem;
+}
+.sp-t { font-size:.85rem; font-weight:300; color:var(--gr); line-height:1.72; }
+
+/* ── TARTARUGHE ── */
+#tartarughe {
+  background:var(--blu);
+  padding:7rem 2rem;
+  text-align:center;
+  position:relative; overflow:hidden;
+}
+.turtle-svg {
+  width:clamp(120px,25vw,200px);
+  height:auto;
+  margin:0 auto 2.5rem;
+  display:block;
+  opacity:.7;
+  animation:turtlefloat 6s ease-in-out infinite;
+}
+@keyframes turtlefloat {
+  0%,100%{ transform:translateY(0) rotate(-2deg); }
+  50%{ transform:translateY(-12px) rotate(2deg); }
+}
+#tartarughe .bdy { max-width:560px; margin-inline:auto; }
+
+/* ── SOCIAL ── */
+#social {
+  background:var(--blu2);
+  padding:6rem 2rem;
+  text-align:center;
+}
+.ig-embed-wrap {
+  margin:2.5rem auto 0;
+  max-width:480px;
+  border:1px solid var(--ln);
+  overflow:hidden;
+}
+.ig-embed-wrap iframe {
+  width:100%; min-height:600px;
+  border:none; display:block;
+}
+.ig-links {
+  display:flex; flex-direction:column;
+  gap:.8rem; margin:2rem auto 0;
+  max-width:400px;
+}
+.ig-link {
+  display:flex; align-items:center; justify-content:space-between;
+  padding:.9rem 1.2rem;
+  border:1px solid var(--ln);
+  color:#fff; text-decoration:none;
+  font-size:.82rem; font-weight:300;
+  letter-spacing:.05em;
+  background:rgba(255,255,255,.03);
+  transition:background .25s, border-color .25s;
+}
+.ig-link:hover { background:rgba(74,154,212,.1); border-color:var(--acqua); }
+.ig-link-left { display:flex; align-items:center; gap:.6rem; }
+.ig-link-left svg { width:14px; height:14px; fill:currentColor; opacity:.7; }
+.ig-link-anno { font-size:.65rem; color:var(--acqua); letter-spacing:.1em; }
+
+/* ── DINTORNI ── */
+#dintorni .schermo-bg {
+  background-image:url('https://raw.githubusercontent.com/cittadellacs/imgcittadella/main/cittadella.jpg');
+}
+.dintorni-list {
+  margin-top:3rem; width:100%;
+  max-width:680px; margin-inline:auto;
+  text-align:left;
+}
+.dintorno {
+  display:grid; grid-template-columns:1fr auto;
+  gap:1.5rem; align-items:baseline;
+  padding:1.3rem 0;
+  border-bottom:1px solid var(--ln);
+  transition:opacity .25s;
+}
+.dintorno:hover { opacity:.7; }
+.din-n {
+  font-family:'Bebas Neue', sans-serif;
+  font-size:1.15rem; letter-spacing:.04em; color:#fff;
+}
+.din-sub { font-size:.82rem; font-weight:300; color:var(--gr); margin-top:.2rem; line-height:1.6; }
+.din-d { font-size:.65rem; font-weight:300; color:var(--acqua); letter-spacing:.1em; white-space:nowrap; text-align:right; }
+
+/* ── ARRIVARE ── */
+#arrivare { background:var(--blu); padding:6rem 2rem; text-align:center; }
+.arr-list {
+  margin:2.5rem auto 0;
+  max-width:560px; text-align:left;
+}
+.tr { padding:1.5rem 0; border-bottom:1px solid var(--ln); }
+.tr-h {
+  font-family:'Bebas Neue', sans-serif;
+  font-size:1.1rem; letter-spacing:.04em;
+  color:var(--acqua); margin-bottom:.35rem;
+}
+.tr-p { font-size:.88rem; font-weight:300; color:var(--gr); line-height:1.75; }
+.mappa-wrap { margin:3rem auto 0; max-width:680px; }
+.mappa-frame { overflow:hidden; border:1px solid var(--ln); }
+.mappa-frame iframe { width:100%; height:320px; border:none; display:block; }
+.mappa-link {
+  display:inline-flex; align-items:center; gap:.4rem;
+  margin-top:.8rem; font-size:.72rem; font-weight:400;
+  letter-spacing:.1em; text-transform:uppercase;
+  color:var(--acqua); text-decoration:none; transition:opacity .2s;
+}
+.mappa-link:hover { opacity:.7; }
+.mappa-link::before { content:'→ '; }
+
+/* ── FOOTER MONUMENTALE ── */
+footer {
+  background:var(--blu2);
+  padding:4rem 2rem 3rem;
+  text-align:center;
+  position:relative; overflow:hidden;
+  border-top:1px solid var(--ln);
+}
+.footer-titolo {
+  font-family:'Bebas Neue', sans-serif;
+  font-size:clamp(3.5rem,18vw,14rem);
+  letter-spacing:.02em; line-height:.9;
+  color:#fff;
+  opacity:.12;
+  position:absolute; inset:0;
+  display:flex; align-items:center; justify-content:center;
+  pointer-events:none; user-select:none;
+  padding:0 1rem;
+  word-break:break-word; text-align:center;
+}
+.footer-cnt {
+  position:relative; z-index:2;
+  display:flex; flex-direction:column;
+  align-items:center; gap:1.2rem;
+}
+.footer-nome {
+  font-family:'Bebas Neue', sans-serif;
+  font-size:clamp(1.5rem,5vw,2.5rem);
+  letter-spacing:.05em; color:#fff;
+}
+.footer-sub {
+  font-size:.62rem; font-weight:300;
+  letter-spacing:.22em; text-transform:uppercase;
+  color:var(--acqua);
+}
+.footer-soc { display:flex; gap:.7rem; flex-wrap:wrap; justify-content:center; }
+.footer-btn {
+  display:flex; align-items:center; gap:.4rem;
+  padding:.45rem 1rem;
+  border:1px solid var(--ln);
+  color:#fff; text-decoration:none;
+  font-size:.72rem; border-radius:100px;
+  transition:border-color .25s, background .25s;
+}
+.footer-btn:hover { border-color:var(--acqua); background:rgba(158,204,232,.08); }
+.footer-btn svg { width:12px; height:12px; fill:currentColor; }
+.footer-copy {
+  font-size:.6rem; color:rgba(255,255,255,.2);
+  margin-top:1rem; letter-spacing:.08em;
+}
+
+/* ── FADE ── */
+.fade { opacity:0; transform:translateY(18px); transition:opacity .7s ease, transform .7s ease; }
+.fade.in { opacity:1; transform:none; }
+.fade-delay-1 { transition-delay:.1s; }
+.fade-delay-2 { transition-delay:.2s; }
+.fade-delay-3 { transition-delay:.3s; }
+
+/* ── CURSOR PERSONALIZZATO (solo desktop) ── */
+@media(min-width:1024px){
+  body { cursor:none; }
+  .cursor {
+    width:8px; height:8px; background:var(--acqua);
+    border-radius:50%; position:fixed; pointer-events:none;
+    z-index:9999; transition:transform .15s ease, opacity .2s;
+    mix-blend-mode:difference;
+  }
+  .cursor-ring {
+    width:36px; height:36px;
+    border:1px solid rgba(158,204,232,.5);
+    border-radius:50%; position:fixed; pointer-events:none;
+    z-index:9998; transition:transform .35s ease;
+  }
+}
+
+/* ── NAV LATERALE A ONDE ── */
+#side-nav {
+  position:fixed;
+  right:1.4rem; top:50%;
+  transform:translateY(-50%);
+  z-index:200;
+  display:flex; flex-direction:column;
+  align-items:center; gap:.9rem;
+}
+@media(max-width:600px){
+  #side-nav { right:.6rem; gap:.65rem; }
+}
+.snav-item {
+  display:flex; align-items:center; justify-content:center;
+  width:28px; height:28px;
+  cursor:pointer;
+  position:relative;
+  opacity:.35;
+  transition:opacity .3s, transform .3s;
+}
+.snav-item:hover, .snav-item.active { opacity:1; transform:scale(1.2); }
+.snav-item svg { width:22px; height:22px; }
+.snav-item .snav-label {
+  position:absolute; right:36px; top:50%;
+  transform:translateY(-50%);
+  font-size:.58rem; font-weight:300;
+  letter-spacing:.12em; text-transform:uppercase;
+  color:#fff; white-space:nowrap;
+  background:rgba(11,31,51,.7);
+  padding:.2rem .6rem;
+  border-radius:3px;
+  opacity:0; pointer-events:none;
+  transition:opacity .2s;
+}
+.snav-item:hover .snav-label { opacity:1; }
+
+/* ── SEZIONE FOTO CIM2825 ── */
+#foto-chiese {
+  min-height:70vh;
+  position:relative; overflow:hidden;
+  display:flex; align-items:center; justify-content:center;
+}
+#foto-chiese .schermo-bg {
+  background-image:url('https://raw.githubusercontent.com/cittadellacs/imgcittadella/main/CIM2825.jpg');
+  background-attachment:scroll;
+}
+#foto-chiese .schermo-overlay {
+  background:rgba(11,31,51,.35);
+}
+
+/* ── DISCLAIMER ── */
+#disclaimer {
+  background:var(--blu);
+  padding:4rem 2rem;
+  text-align:center;
+  border-top:1px solid rgba(255,255,255,.06);
+}
+.disclaimer-testo {
+  max-width:620px; margin:0 auto;
+  font-size:.78rem; font-weight:300;
+  line-height:1.9; color:rgba(255,255,255,.38);
+  font-style:italic;
+}
+.disclaimer-testo strong {
+  color:rgba(255,255,255,.55);
+  font-weight:400; font-style:normal;
+}
+</style>
+</head>
+<body>
+
+<!-- CURSORE PERSONALIZZATO (solo desktop) -->
+<div class="cursor" id="cur"></div>
+<div class="cursor-ring" id="curRing"></div>
+
+<!-- NAV LATERALE A ONDE/TARTARUGHE SVG -->
+<nav id="side-nav" aria-label="Navigazione sezioni">
+  <div class="snav-item active" data-section="copertina" onclick="scrollTo_('#copertina')">
+    <span class="snav-label">Inizio</span>
+    <svg viewBox="0 0 22 22" fill="none"><path d="M2 14 Q5.5 8 9 14 Q12.5 20 16 14 Q19.5 8 22 11" stroke="white" stroke-width="1.5" stroke-linecap="round"/><path d="M2 9 Q5.5 3 9 9 Q12.5 15 16 9 Q19.5 3 22 6" stroke="rgba(255,255,255,.3)" stroke-width="1" stroke-linecap="round"/></svg>
+  </div>
+  <div class="snav-item" data-section="zone" onclick="scrollTo_('#zone')">
+    <span class="snav-label">Territorio</span>
+    <svg viewBox="0 0 22 22" fill="none"><path d="M2 13 Q6 8 11 13 Q16 18 20 13" stroke="white" stroke-width="1.5" stroke-linecap="round"/><circle cx="11" cy="13" r="1.5" fill="rgba(158,204,232,.6)"/></svg>
+  </div>
+  <div class="snav-item" data-section="luoghi" onclick="scrollTo_('#luoghi')">
+    <span class="snav-label">Luoghi</span>
+    <svg viewBox="0 0 22 22" fill="none"><path d="M1 12 Q4 7 7 12 Q10 17 13 12 Q16 7 19 10 Q21 12 22 11" stroke="white" stroke-width="1.5" stroke-linecap="round"/></svg>
+  </div>
+  <div class="snav-item" data-section="segreti" onclick="scrollTo_('#segreti')">
+    <span class="snav-label">Segreti</span>
+    <svg viewBox="0 0 22 22" fill="none"><path d="M1 11 Q5.5 5 11 11 Q16.5 17 22 11" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-dasharray="3 2"/></svg>
+  </div>
+  <div class="snav-item" data-section="chiese" onclick="scrollTo_('#chiese')">
+    <span class="snav-label">Chiese</span>
+    <svg viewBox="0 0 22 22" fill="none"><ellipse cx="11" cy="12" rx="6" ry="5" stroke="white" stroke-width="1.3"/><ellipse cx="11" cy="5.5" rx="2.5" ry="2" stroke="white" stroke-width="1"/><line x1="5.5" y1="9" x2="3" y2="7" stroke="white" stroke-width="1" stroke-linecap="round"/><line x1="16.5" y1="9" x2="19" y2="7" stroke="white" stroke-width="1" stroke-linecap="round"/><line x1="5.5" y1="15" x2="3" y2="17" stroke="white" stroke-width="1" stroke-linecap="round"/><line x1="16.5" y1="15" x2="19" y2="17" stroke="white" stroke-width="1" stroke-linecap="round"/></svg>
+  </div>
+  <div class="snav-item" data-section="mare" onclick="scrollTo_('#mare')">
+    <span class="snav-label">Mare</span>
+    <svg viewBox="0 0 22 22" fill="none"><path d="M1 9 Q4 5 7 9 Q10 13 13 9 Q16 5 19 8 Q21 10 22 9" stroke="white" stroke-width="1.5" stroke-linecap="round"/><path d="M1 14 Q4 10 7 14 Q10 18 13 14 Q16 10 19 13 Q21 15 22 14" stroke="rgba(255,255,255,.4)" stroke-width="1" stroke-linecap="round"/></svg>
+  </div>
+  <div class="snav-item" data-section="tartarughe" onclick="scrollTo_('#tartarughe')">
+    <span class="snav-label">Caretta</span>
+    <svg viewBox="0 0 22 22" fill="none"><ellipse cx="11" cy="12.5" rx="6" ry="5" stroke="white" stroke-width="1.3" fill="rgba(158,204,232,.12)"/><ellipse cx="11" cy="5.5" rx="2.5" ry="2" stroke="white" stroke-width="1" fill="rgba(158,204,232,.12)"/><line x1="5.5" y1="9.5" x2="3" y2="7.5" stroke="white" stroke-width="1" stroke-linecap="round"/><line x1="16.5" y1="9.5" x2="19" y2="7.5" stroke="white" stroke-width="1" stroke-linecap="round"/><line x1="5.5" y1="15.5" x2="3" y2="17.5" stroke="white" stroke-width="1" stroke-linecap="round"/><line x1="16.5" y1="15.5" x2="19" y2="17.5" stroke="white" stroke-width="1" stroke-linecap="round"/><line x1="11" y1="7.5" x2="11" y2="17.5" stroke="rgba(255,255,255,.3)" stroke-width=".8"/><line x1="5" y1="12.5" x2="17" y2="12.5" stroke="rgba(255,255,255,.3)" stroke-width=".8"/></svg>
+  </div>
+  <div class="snav-item" data-section="social" onclick="scrollTo_('#social')">
+    <span class="snav-label">Social</span>
+    <svg viewBox="0 0 22 22" fill="none"><path d="M1 13 Q5 7 9 13 Q13 19 17 13 Q19.5 9 22 11" stroke="white" stroke-width="1.5" stroke-linecap="round"/><circle cx="11" cy="13" r="2" stroke="rgba(158,204,232,.7)" stroke-width="1"/></svg>
+  </div>
+  <div class="snav-item" data-section="dintorni" onclick="scrollTo_('#dintorni')">
+    <span class="snav-label">Dintorni</span>
+    <svg viewBox="0 0 22 22" fill="none"><path d="M1 11 Q11 1 22 11" stroke="white" stroke-width="1.5" stroke-linecap="round"/><path d="M1 15 Q11 5 22 15" stroke="rgba(255,255,255,.3)" stroke-width="1" stroke-linecap="round"/></svg>
+  </div>
+  <div class="snav-item" data-section="arrivare" onclick="scrollTo_('#arrivare')">
+    <span class="snav-label">Arrivare</span>
+    <svg viewBox="0 0 22 22" fill="none"><path d="M1 13 Q5.5 7 10 13 Q14.5 19 19 13" stroke="white" stroke-width="1.5" stroke-linecap="round"/><path d="M17 10 L20 13 L17 16" stroke="rgba(158,204,232,.7)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </div>
+</nav>
+
+<!-- ══ COPERTINA ══ -->
+<section id="copertina" class="schermo">
+  <div class="schermo-bg"></div>
+  <div class="schermo-overlay"></div>
+  <div class="schermo-cnt">
+    <p class="cop-sub fade">Bonifati · Cosenza · Calabria</p>
+    <h1 class="cop-title fade fade-delay-1">
+      Cittadella
+      <span>del Capo</span>
+    </h1>
+    <p class="cop-desc fade fade-delay-2">Sul Tirreno cosentino, nel cuore della Riviera dei Cedri. Un posto quieto, con un palazzo che è Monumento Nazionale e un mare che non delude.</p>
+    <div class="soc-pills fade fade-delay-3">
+      <a href="https://www.instagram.com/cittadelladelcapo.cs?igsh=bWprNmRmMmNicjl5&utm_source=qr" target="_blank" rel="noopener" class="pill">
+        <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+        Instagram
+      </a>
+      <a href="https://www.facebook.com/share/16deYDQdUn/?mibextid=wwXIfr" target="_blank" rel="noopener" class="pill">
+        <svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+        Facebook
+      </a>
+    </div>
+  </div>
+  <div class="scroll-ind"><div class="scroll-dot"></div><span>Scorri</span></div>
+</section>
+
+<!-- ══ ZONE ══ -->
+<section id="zone" class="schermo" style="min-height:auto;padding:5rem 2rem;">
+  <div class="schermo-bg" style="background-image:url('https://raw.githubusercontent.com/cittadellacs/imgcittadella/main/cittadella.jpg');opacity:.2;"></div>
+  <div class="schermo-overlay" style="background:rgba(11,31,51,.75);"></div>
+  <div class="schermo-cnt" style="max-width:900px;">
+    <span class="lbl fade">Il Territorio</span>
+    <h2 class="ttl-sm fade">Le zone di Cittadella</h2>
+    <div class="zone-grid fade">
+      <div class="zona"><div class="zona-n">Cittadella Centro</div><div class="zona-pos">centro</div></div>
+      <div class="zona"><div class="zona-n">Paneduro</div><div class="zona-pos">nord</div></div>
+      <div class="zona"><div class="zona-n">Santa Maria</div><div class="zona-pos">sud</div></div>
+      <div class="zona"><div class="zona-n">Telegrafo</div><div class="zona-pos">collina</div></div>
+      <div class="zona"><div class="zona-n">Greco</div><div class="zona-pos">storica</div></div>
+      <div class="zona"><div class="zona-n">Cavinia</div><div class="zona-pos">sud</div></div>
+      <div class="zona"><div class="zona-n">4 Novembre</div><div class="zona-pos">via principale</div></div>
+      <div class="zona"><div class="zona-n">Paneduro</div><div class="zona-pos">spiaggia nord</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ LUOGHI ══ -->
+<section id="luoghi" class="schermo">
+  <div class="schermo-bg" style="background-image:url('https://raw.githubusercontent.com/cittadellacs/imgcittadella/main/im.jpg');"></div>
+  <div class="schermo-overlay"></div>
+  <div class="schermo-cnt" style="max-width:800px;">
+    <span class="lbl fade">Luoghi</span>
+    <h2 class="ttl fade">Da vedere</h2>
+    <div class="luoghi-items">
+      <div class="luogo fade">
+        <span class="l-n">01</span>
+        <div><div class="l-title">Palazzo del Capo</div><p class="l-desc">Ex residenza dei Duchi De Aloe, Monumento Nazionale dal 1984. Costruito attorno alla Torre di Fella, a picco sul mare. Oggi hotel, SPA e ristorante.</p></div>
+      </div>
+      <div class="luogo fade">
+        <span class="l-n">02</span>
+        <div><div class="l-title">Torre di Fella</div><p class="l-desc">Struttura normanna dell'XI secolo, ampliata nel XIV e trasformata in castello nel XVI. Inglobata nel Palazzo del Capo, visitabile su richiesta.</p></div>
+      </div>
+      <div class="luogo fade">
+        <span class="l-n">03</span>
+        <div><div class="l-title">Promontorio di Capo Bonifati</div><p class="l-desc">Vista aperta sul Tirreno. Nelle giornate limpide si vedono le isole Eolie.</p></div>
+      </div>
+      <div class="luogo fade">
+        <span class="l-n">04</span>
+        <div><div class="l-title">Lungomare Matteotti</div><p class="l-desc">Passeggiata alberata tra pini e palme, con la statua bronzea di San Francesco da Paola. Il punto di ritrovo nelle serate d'estate.</p></div>
+      </div>
+      <div class="luogo fade">
+        <span class="l-n">05</span>
+        <div><div class="l-title">Grotta delle Tre Colonne</div><p class="l-desc">Formazione naturale nella zona di Cavinia, al confine conteso tra Cittadella del Capo e Cetraro. Raggiungibile via mare, meta di chi esplora la costa in kayak o snorkeling.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ ANGOLI SEGRETI ══ -->
+<section id="segreti">
+  <div class="segreti-line"></div>
+  <span class="lbl fade" style="text-align:center">Per chi resta</span>
+  <h2 class="ttl fade" style="max-width:700px;margin:0 auto 1.5rem;">Altri angoli</h2>
+  <p class="bdy fade" style="max-width:500px;margin:0 auto;">
+    Ci sono posti che non si trovano sui siti e non compaiono nelle guide. Anfratti di scogliera, scale che scendono al mare, tratti di costa che i villeggiatori non raggiungono. Angoli che esistono solo per chi vive Cittadella, non per chi la visita. Non li descriviamo. Si scoprono camminando.
+  </p>
+  <div class="segreti-line"></div>
+</section>
+
+<!-- ══ CHIESE ══ -->
+<section id="chiese" class="schermo">
+  <div class="schermo-bg" style="background-image:url('https://raw.githubusercontent.com/cittadellacs/imgcittadella/main/casina.jpg');"></div>
+  <div class="schermo-overlay"></div>
+  <div class="schermo-cnt" style="max-width:720px;">
+    <span class="lbl fade">Fede e comunità</span>
+    <h2 class="ttl fade">Le Chiese</h2>
+    <div class="chiese-items">
+      <div class="chiesa fade">
+        <div class="ch-n">Chiesa di San Francesco da Paola</div>
+        <p class="ch-t">La parrocchiale di Cittadella del Capo. Costruita nel 1970 e ristrutturata nel 2006. La terza domenica di agosto ospita la festa votiva in onore del santo patrono della Calabria e della gente di mare.</p>
+      </div>
+      <div class="chiesa fade">
+        <div class="ch-n">Chiesa di San Michele Arcangelo</div>
+        <p class="ch-t">Eretta nel 1924 lungo la strada nazionale grazie a benefattori locali. Custodisce la statua di San Francesco da Paola nell'atto di attraversare lo Stretto di Messina.</p>
+      </div>
+      <div class="chiesa fade">
+        <div class="ch-n">Cappella dei De Aloe</div>
+        <p class="ch-t">Cappella gentilizia all'interno del Palazzo del Capo, restaurata. Testimonia la storia della famiglia ducale che per secoli ha segnato le sorti di Cittadella.</p>
+      </div>
+      <div class="chiesa fade">
+        <div class="ch-n">Chiesetta di Sant'Anna</div>
+        <p class="ch-t">Piccola chiesa nella zona di Paneduro, nel tratto nord di Cittadella del Capo.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ FOTO CIM2825 ══ -->
+<section class="schermo" style="min-height:70vh;pointer-events:none;">
+  <div class="schermo-bg" style="background-image:url('https://raw.githubusercontent.com/cittadellacs/imgcittadella/main/CIM2825.jpg');background-attachment:scroll;"></div>
+  <div class="schermo-overlay" style="background:rgba(11,31,51,.2);"></div>
+</section>
+
+<!-- ══ MARE ══ -->
+<section id="mare" class="schermo">
+  <div class="schermo-bg" style="background-image:url('https://raw.githubusercontent.com/cittadellacs/imgcittadella/main/vistaalto.jpg');"></div>
+  <div class="schermo-overlay" style="background:rgba(11,31,51,.78);"></div>
+  <div class="schermo-cnt" style="max-width:760px;">
+    <span class="lbl fade">Mare e Natura</span>
+    <h2 class="ttl fade">Il mare di Cittadella</h2>
+    <p class="bdy fade" style="margin-bottom:2rem;">Fondali trasparenti, litorale tra sabbia e scogliera. Da giugno a settembre il mare di Cittadella non delude.</p>
+    <div class="spiagge-list">
+      <div class="sp fade"><div class="sp-n">Spiaggia di Cittadella</div><p class="sp-t">La principale. Sabbia e ciottoli, lidi attrezzati e zone libere. Acqua calma, adatta alle famiglie.</p></div>
+      <div class="sp fade"><div class="sp-n">Spiaggia di Santa Maria</div><p class="sp-t">A sud, raggiungibile in auto. Poco frequentata, apprezzata da chi cerca tranquillità.</p></div>
+      <div class="sp fade"><div class="sp-n">Spiaggia di Paneduro</div><p class="sp-t">A nord. Spiaggia libera e naturale, nota per la nidificazione delle tartarughe Caretta caretta.</p></div>
+      <div class="sp fade"><div class="sp-n">Spiaggia di Cavinia</div><p class="sp-t">Al confine con Cetraro, vicino alla Grotta delle Tre Colonne. Ideale per chi esplora via mare.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ TARTARUGHE ══ -->
+<section id="tartarughe">
+  <!-- SVG tartaruga -->
+  <svg class="turtle-svg" viewBox="0 0 200 160" xmlns="http://www.w3.org/2000/svg" fill="none">
+    <!-- carapace -->
+    <ellipse cx="100" cy="80" rx="52" ry="42" fill="rgba(74,154,212,.18)" stroke="rgba(158,204,232,.45)" stroke-width="1.5"/>
+    <!-- pattern carapace -->
+    <ellipse cx="100" cy="80" rx="30" ry="24" fill="none" stroke="rgba(158,204,232,.25)" stroke-width="1"/>
+    <line x1="100" y1="38" x2="100" y2="122" stroke="rgba(158,204,232,.2)" stroke-width="1"/>
+    <line x1="48" y1="80" x2="152" y2="80" stroke="rgba(158,204,232,.2)" stroke-width="1"/>
+    <line x1="62" y1="50" x2="138" y2="110" stroke="rgba(158,204,232,.15)" stroke-width="1"/>
+    <line x1="138" y1="50" x2="62" y2="110" stroke="rgba(158,204,232,.15)" stroke-width="1"/>
+    <!-- testa -->
+    <ellipse cx="100" cy="32" rx="14" ry="11" fill="rgba(74,154,212,.2)" stroke="rgba(158,204,232,.4)" stroke-width="1.5"/>
+    <!-- collo -->
+    <rect x="94" y="36" width="12" height="10" rx="3" fill="rgba(74,154,212,.15)"/>
+    <!-- zampe anteriori -->
+    <ellipse cx="55" cy="55" rx="16" ry="8" fill="rgba(74,154,212,.15)" stroke="rgba(158,204,232,.3)" stroke-width="1" transform="rotate(-30 55 55)"/>
+    <ellipse cx="145" cy="55" rx="16" ry="8" fill="rgba(74,154,212,.15)" stroke="rgba(158,204,232,.3)" stroke-width="1" transform="rotate(30 145 55)"/>
+    <!-- zampe posteriori -->
+    <ellipse cx="60" cy="110" rx="14" ry="7" fill="rgba(74,154,212,.15)" stroke="rgba(158,204,232,.3)" stroke-width="1" transform="rotate(25 60 110)"/>
+    <ellipse cx="140" cy="110" rx="14" ry="7" fill="rgba(74,154,212,.15)" stroke="rgba(158,204,232,.3)" stroke-width="1" transform="rotate(-25 140 110)"/>
+    <!-- coda -->
+    <path d="M100 122 Q100 145 96 152" stroke="rgba(158,204,232,.35)" stroke-width="2" stroke-linecap="round"/>
+    <!-- occhi -->
+    <circle cx="94" cy="29" r="2.5" fill="rgba(158,204,232,.7)"/>
+    <circle cx="106" cy="29" r="2.5" fill="rgba(158,204,232,.7)"/>
+  </svg>
+  <span class="lbl fade" style="text-align:center">Natura protetta</span>
+  <h2 class="ttl-sm fade" style="max-width:600px;margin:0 auto 1.5rem;">Caretta caretta</h2>
+  <p class="bdy fade">Le spiagge di Cittadella del Capo sono un sito noto di nidificazione per le tartarughe Caretta caretta sul Tirreno cosentino. Le deposizioni avvengono solitamente tra giugno e luglio, in particolare in località Paneduro. Le schiuse vengono monitorate tra agosto e settembre da associazioni ambientaliste come il WWF.</p>
+</section>
+
+<!-- ══ SOCIAL ══ -->
+<section id="social">
+  <span class="lbl fade">Seguici</span>
+  <h2 class="ttl-sm fade">Dai nostri profili</h2>
+  <p class="bdy fade" style="max-width:460px;margin:0 auto;">Scatti, momenti e aggiornamenti da Cittadella del Capo.</p>
+  <div class="ig-embed-wrap fade">
+    <iframe src="https://www.instagram.com/cittadelladelcapo.cs/embed" scrolling="no" allowtransparency="true"></iframe>
+  </div>
+  <div class="ig-links fade">
+    <a href="https://www.instagram.com/cittadelladelcapo.cs?igsh=bWprNmRmMmNicjl5&utm_source=qr" target="_blank" rel="noopener" class="ig-link">
+      <div class="ig-link-left">
+        <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+        @cittadelladelcapo.cs
+      </div>
+      <span class="ig-link-anno">dal 2023</span>
+    </a>
+    <a href="https://www.facebook.com/share/16deYDQdUn/?mibextid=wwXIfr" target="_blank" rel="noopener" class="ig-link">
+      <div class="ig-link-left">
+        <svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+        Cittadella del Capo
+      </div>
+      <span class="ig-link-anno">dal 2014</span>
+    </a>
+  </div>
+</section>
+
+<!-- ══ DINTORNI ══ -->
+<section id="dintorni" class="schermo" style="min-height:auto;padding:5rem 2rem;">
+  <div class="schermo-bg" style="background-image:url('https://raw.githubusercontent.com/cittadellacs/imgcittadella/main/cittadella.jpg');"></div>
+  <div class="schermo-overlay" style="background:rgba(11,31,51,.82);"></div>
+  <div class="schermo-cnt" style="max-width:800px;">
+    <span class="lbl fade">Nelle vicinanze</span>
+    <h2 class="ttl-sm fade">Le bellezze intorno</h2>
+    <p class="bdy fade" style="margin-bottom:2rem;">Cittadella del Capo è una base naturale per esplorare la costa cosentina.</p>
+    <div class="dintorni-list">
+      <div class="dintorno fade"><div><div class="din-n">Belvedere Marittimo</div><div class="din-sub">Centro storico medievale su un promontorio, marina attrezzata.</div></div><span class="din-d">~10 min</span></div>
+      <div class="dintorno fade"><div><div class="din-n">Cetraro</div><div class="din-sub">Porto turistico, borgo antico e spiagge organizzate.</div></div><span class="din-d">~10 min</span></div>
+      <div class="dintorno fade"><div><div class="din-n">Terme Luigiane</div><div class="din-sub">Tra gli impianti termali più importanti del Sud Italia. Acque sulfuree ad Acquappesa.</div></div><span class="din-d">~20 min</span></div>
+      <div class="dintorno fade"><div><div class="din-n">Diamante</div><div class="din-sub">La città dei murales. Festival della Commedia all'Italiana.</div></div><span class="din-d">~20 min</span></div>
+      <div class="dintorno fade"><div><div class="din-n">Guardia Piemontese</div><div class="din-sub">Borgo occitano dove si parla ancora una variante del provenzale antico.</div></div><span class="din-d">~20 min</span></div>
+      <div class="dintorno fade"><div><div class="din-n">Scalea</div><div class="din-sub">Spiagge ampie e borgo medievale, centro della Riviera dei Cedri.</div></div><span class="din-d">~25 min</span></div>
+      <div class="dintorno fade"><div><div class="din-n">Paola</div><div class="din-sub">Santuario di San Francesco da Paola. Principale nodo ferroviario della costa.</div></div><span class="din-d">~30 min</span></div>
+      <div class="dintorno fade"><div><div class="din-n">Cirella</div><div class="din-sub">Ruderi romani, isolotto e spiagge libere di grande bellezza.</div></div><span class="din-d">~30 min</span></div>
+      <div class="dintorno fade"><div><div class="din-n">Isola di Dino</div><div class="din-sub">La più grande isola della Calabria. Grotte marine, acque smeraldo.</div></div><span class="din-d">~35 min</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ ARRIVARE ══ -->
+<section id="arrivare">
+  <span class="lbl fade">Come Arrivare</span>
+  <h2 class="ttl-sm fade">Raggiungi Cittadella</h2>
+  <div class="arr-list">
+    <div class="tr fade">
+      <div class="tr-h">In auto</div>
+      <p class="tr-p">Autostrada A2 Salerno–Reggio Calabria: uscita Falerna (da nord) o Lagonegro Nord (da est). Poi SS18 costiera fino al borgo.</p>
+    </div>
+    <div class="tr fade">
+      <div class="tr-h">In treno</div>
+      <p class="tr-p">Stazione di Capo Bonifati sulla linea tirrenica Paola–Scalea.</p>
+    </div>
+    <div class="tr fade">
+      <div class="tr-h">In aereo</div>
+      <p class="tr-p">Aeroporto di Lamezia Terme (SUF), circa 85 km. Collegato con i principali scali italiani ed europei.</p>
+    </div>
+  </div>
+  <div class="mappa-wrap fade">
+    <div class="mappa-frame">
+      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3000!2d15.864!3d39.555!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x13194e6f00000001%3A0x1!2sCittadella+del+Capo%2C+87020+Bonifati+CS!5e0!3m2!1sit!2sit!4v1680000000001" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Mappa Cittadella del Capo"></iframe>
+    </div>
+    <a href="https://www.google.com/maps/search/Cittadella+del+Capo+Bonifati+Cosenza+Calabria" target="_blank" rel="noopener" class="mappa-link">Apri in Google Maps</a>
+  </div>
+</section>
+
+<!-- ══ DISCLAIMER ══ -->
+<section id="disclaimer">
+  <p class="disclaimer-testo">
+    <strong>Nota informativa.</strong> Questo sito è un progetto editoriale indipendente, interamente autofinanziato, dedicato alla valorizzazione di Cittadella del Capo e del suo territorio. Le informazioni presenti sono raccolte con cura, ma potrebbero contenere imprecisioni o non essere aggiornate. Non ci assumiamo responsabilità per eventuali errori, omissioni o variazioni rispetto alla realtà. Parte del materiale pubblicato proviene da fonti esterne: qualora si ravvisassero problemi di attribuzione, invitiamo a segnalarcelo. <strong>Accogliamo volentieri correzioni, integrazioni e suggerimenti da parte di chi conosce il paese meglio di chiunque altro.</strong> Questo progetto è aperto al contributo della comunità: se hai informazioni, foto o storie che vuoi condividere, contattaci sui nostri profili social.
+  </p>
+</section>
+
+<!-- ══ FOOTER ══ -->
+<footer>
+  <div class="footer-titolo" aria-hidden="true">CITTADELLA DEL CAPO</div>
+  <div class="footer-cnt">
+    <div class="footer-nome">Cittadella del Capo</div>
+    <div class="footer-sub">Riviera dei Cedri · Calabria · Italia</div>
+    <div class="footer-soc">
+      <a href="https://www.instagram.com/cittadelladelcapo.cs?igsh=bWprNmRmMmNicjl5&utm_source=qr" target="_blank" rel="noopener" class="footer-btn">
+        <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+        Instagram
+      </a>
+      <a href="https://www.facebook.com/share/16deYDQdUn/?mibextid=wwXIfr" target="_blank" rel="noopener" class="footer-btn">
+        <svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+        Facebook
+      </a>
+    </div>
+    <div class="footer-copy">© 2026 Cittadella del Capo · Frazione di Bonifati (CS) · Calabria, Italia</div>
+  </div>
+</footer>
+
+<script>
+/* Fade on scroll */
+const obs = new IntersectionObserver(entries=>{
+  entries.forEach((e,i)=>{ if(e.isIntersecting) setTimeout(()=>e.target.classList.add('in'),i*55); });
+},{threshold:0.06});
+document.querySelectorAll('.fade').forEach(el=>obs.observe(el));
+
+/* Cursore personalizzato desktop */
+const cur = document.getElementById('cur');
+const ring = document.getElementById('curRing');
+if(cur && ring){
+  let mx=0,my=0,rx=0,ry=0;
+  document.addEventListener('mousemove',e=>{
+    mx=e.clientX; my=e.clientY;
+    cur.style.transform=`translate(${mx-4}px,${my-4}px)`;
+  });
+  function animRing(){
+    rx+=(mx-rx)*.12; ry+=(my-ry)*.12;
+    ring.style.transform=`translate(${rx-18}px,${ry-18}px)`;
+    requestAnimationFrame(animRing);
+  }
+  animRing();
+}
+
+/* Nav laterale: scroll smooth */
+function scrollTo_(sel){
+  const el = document.querySelector(sel);
+  if(el) el.scrollIntoView({behavior:'smooth'});
+}
+
+/* Nav laterale: aggiorna active */
+const sezIDs = ['copertina','zone','luoghi','segreti','chiese','mare','tartarughe','social','dintorni','arrivare'];
+const snavItems = document.querySelectorAll('.snav-item');
+
+const sezObs = new IntersectionObserver(entries=>{
+  entries.forEach(entry=>{
+    if(entry.isIntersecting){
+      const id = entry.target.id;
+      snavItems.forEach(item=>{
+        item.classList.toggle('active', item.dataset.section === id);
+      });
+    }
+  });
+},{threshold:0.4});
+
+sezIDs.forEach(id=>{
+  const el = document.getElementById(id);
+  if(el) sezObs.observe(el);
+});
+</script>
+</body>
+</html>
