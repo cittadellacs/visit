@@ -421,58 +421,57 @@ footer {
 .fade-delay-2 { transition-delay:.2s; }
 .fade-delay-3 { transition-delay:.3s; }
 
-/* ── CURSOR PERSONALIZZATO (solo desktop) ── */
-@media(min-width:1024px){
-  body { cursor:none; }
-  .cursor {
-    width:8px; height:8px; background:var(--acqua);
-    border-radius:50%; position:fixed; pointer-events:none;
-    z-index:9999; transition:transform .15s ease, opacity .2s;
-    mix-blend-mode:difference;
-  }
-  .cursor-ring {
-    width:36px; height:36px;
-    border:1px solid rgba(158,204,232,.5);
-    border-radius:50%; position:fixed; pointer-events:none;
-    z-index:9998; transition:transform .35s ease;
-  }
-}
+/* cursore default */
 
-/* ── NAV LATERALE A ONDE ── */
+/* ── NAV LATERALE TARTARUGHE ── */
 #side-nav {
   position:fixed;
-  right:1.4rem; top:50%;
+  right:1.2rem; top:50%;
   transform:translateY(-50%);
   z-index:200;
   display:flex; flex-direction:column;
-  align-items:center; gap:.9rem;
+  align-items:center; gap:.7rem;
 }
 @media(max-width:600px){
-  #side-nav { right:.6rem; gap:.65rem; }
+  #side-nav { right:.5rem; gap:.5rem; }
 }
 .snav-item {
   display:flex; align-items:center; justify-content:center;
-  width:28px; height:28px;
-  cursor:pointer;
-  position:relative;
-  opacity:.35;
+  width:24px; height:24px;
+  cursor:pointer; position:relative;
+  opacity:.28;
   transition:opacity .3s, transform .3s;
 }
-.snav-item:hover, .snav-item.active { opacity:1; transform:scale(1.2); }
-.snav-item svg { width:22px; height:22px; }
-.snav-item .snav-label {
-  position:absolute; right:36px; top:50%;
+.snav-item:hover, .snav-item.active { opacity:1; transform:scale(1.25); }
+.snav-item svg { width:20px; height:20px; }
+.snav-item.active svg ellipse, .snav-item.active svg line { stroke:var(--acqua); }
+.snav-label {
+  position:absolute; right:30px; top:50%;
   transform:translateY(-50%);
-  font-size:.58rem; font-weight:300;
+  font-size:.55rem; font-weight:300;
   letter-spacing:.12em; text-transform:uppercase;
   color:#fff; white-space:nowrap;
-  background:rgba(11,31,51,.7);
-  padding:.2rem .6rem;
-  border-radius:3px;
+  background:rgba(11,31,51,.8);
+  padding:.18rem .55rem; border-radius:3px;
   opacity:0; pointer-events:none;
   transition:opacity .2s;
 }
 .snav-item:hover .snav-label { opacity:1; }
+
+/* freccia scroll copertina */
+.scroll-arrow {
+  position:absolute; bottom:2.5rem; left:50%;
+  transform:translateX(-50%);
+  z-index:3;
+  display:flex; flex-direction:column; align-items:center; gap:.5rem;
+  cursor:pointer;
+  animation:arrowbounce 2.2s ease-in-out infinite;
+}
+.scroll-arrow svg { width:28px; height:28px; opacity:.55; }
+@keyframes arrowbounce {
+  0%,100%{ transform:translateX(-50%) translateY(0); opacity:.5; }
+  50%{ transform:translateX(-50%) translateY(8px); opacity:.9; }
+}
 
 /* ── SEZIONE FOTO CIM2825 ── */
 #foto-chiese {
@@ -509,52 +508,59 @@ footer {
 </head>
 <body>
 
-<!-- CURSORE PERSONALIZZATO (solo desktop) -->
-<div class="cursor" id="cur"></div>
-<div class="cursor-ring" id="curRing"></div>
-
-<!-- NAV LATERALE A ONDE/TARTARUGHE SVG -->
+<!-- NAV LATERALE TARTARUGHE SVG -->
 <nav id="side-nav" aria-label="Navigazione sezioni">
+
   <div class="snav-item active" data-section="copertina" onclick="scrollTo_('#copertina')">
     <span class="snav-label">Inizio</span>
-    <svg viewBox="0 0 22 22" fill="none"><path d="M2 14 Q5.5 8 9 14 Q12.5 20 16 14 Q19.5 8 22 11" stroke="white" stroke-width="1.5" stroke-linecap="round"/><path d="M2 9 Q5.5 3 9 9 Q12.5 15 16 9 Q19.5 3 22 6" stroke="rgba(255,255,255,.3)" stroke-width="1" stroke-linecap="round"/></svg>
+    <svg viewBox="0 0 20 20" fill="none"><ellipse cx="10" cy="11" rx="5.5" ry="4.5" stroke="white" stroke-width="1.3"/><ellipse cx="10" cy="4.8" rx="2.2" ry="1.8" stroke="white" stroke-width="1.1"/><line x1="5" y1="8.2" x2="2.8" y2="6.5" stroke="white" stroke-width="1.1" stroke-linecap="round"/><line x1="15" y1="8.2" x2="17.2" y2="6.5" stroke="white" stroke-width="1.1" stroke-linecap="round"/><line x1="5" y1="14" x2="2.8" y2="15.8" stroke="white" stroke-width="1.1" stroke-linecap="round"/><line x1="15" y1="14" x2="17.2" y2="15.8" stroke="white" stroke-width="1.1" stroke-linecap="round"/><line x1="10" y1="6.5" x2="10" y2="15.5" stroke="rgba(255,255,255,.3)" stroke-width=".8"/><line x1="4.5" y1="11" x2="15.5" y2="11" stroke="rgba(255,255,255,.3)" stroke-width=".8"/></svg>
   </div>
+
   <div class="snav-item" data-section="zone" onclick="scrollTo_('#zone')">
     <span class="snav-label">Territorio</span>
-    <svg viewBox="0 0 22 22" fill="none"><path d="M2 13 Q6 8 11 13 Q16 18 20 13" stroke="white" stroke-width="1.5" stroke-linecap="round"/><circle cx="11" cy="13" r="1.5" fill="rgba(158,204,232,.6)"/></svg>
+    <svg viewBox="0 0 20 20" fill="none"><ellipse cx="10" cy="11" rx="5.5" ry="4.5" stroke="white" stroke-width="1.3"/><ellipse cx="10" cy="4.8" rx="2.2" ry="1.8" stroke="white" stroke-width="1.1"/><line x1="5" y1="8.2" x2="2.8" y2="6.5" stroke="white" stroke-width="1.1" stroke-linecap="round"/><line x1="15" y1="8.2" x2="17.2" y2="6.5" stroke="white" stroke-width="1.1" stroke-linecap="round"/><line x1="5" y1="14" x2="2.8" y2="15.8" stroke="white" stroke-width="1.1" stroke-linecap="round"/><line x1="15" y1="14" x2="17.2" y2="15.8" stroke="white" stroke-width="1.1" stroke-linecap="round"/><line x1="10" y1="6.5" x2="10" y2="15.5" stroke="rgba(255,255,255,.3)" stroke-width=".8"/><line x1="4.5" y1="11" x2="15.5" y2="11" stroke="rgba(255,255,255,.3)" stroke-width=".8"/></svg>
   </div>
+
   <div class="snav-item" data-section="luoghi" onclick="scrollTo_('#luoghi')">
     <span class="snav-label">Luoghi</span>
-    <svg viewBox="0 0 22 22" fill="none"><path d="M1 12 Q4 7 7 12 Q10 17 13 12 Q16 7 19 10 Q21 12 22 11" stroke="white" stroke-width="1.5" stroke-linecap="round"/></svg>
+    <svg viewBox="0 0 20 20" fill="none"><ellipse cx="10" cy="11" rx="5.5" ry="4.5" stroke="white" stroke-width="1.3"/><ellipse cx="10" cy="4.8" rx="2.2" ry="1.8" stroke="white" stroke-width="1.1"/><line x1="5" y1="8.2" x2="2.8" y2="6.5" stroke="white" stroke-width="1.1" stroke-linecap="round"/><line x1="15" y1="8.2" x2="17.2" y2="6.5" stroke="white" stroke-width="1.1" stroke-linecap="round"/><line x1="5" y1="14" x2="2.8" y2="15.8" stroke="white" stroke-width="1.1" stroke-linecap="round"/><line x1="15" y1="14" x2="17.2" y2="15.8" stroke="white" stroke-width="1.1" stroke-linecap="round"/><line x1="10" y1="6.5" x2="10" y2="15.5" stroke="rgba(255,255,255,.3)" stroke-width=".8"/><line x1="4.5" y1="11" x2="15.5" y2="11" stroke="rgba(255,255,255,.3)" stroke-width=".8"/></svg>
   </div>
+
   <div class="snav-item" data-section="segreti" onclick="scrollTo_('#segreti')">
     <span class="snav-label">Segreti</span>
-    <svg viewBox="0 0 22 22" fill="none"><path d="M1 11 Q5.5 5 11 11 Q16.5 17 22 11" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-dasharray="3 2"/></svg>
+    <svg viewBox="0 0 20 20" fill="none"><ellipse cx="10" cy="11" rx="5.5" ry="4.5" stroke="white" stroke-width="1.3"/><ellipse cx="10" cy="4.8" rx="2.2" ry="1.8" stroke="white" stroke-width="1.1"/><line x1="5" y1="8.2" x2="2.8" y2="6.5" stroke="white" stroke-width="1.1" stroke-linecap="round"/><line x1="15" y1="8.2" x2="17.2" y2="6.5" stroke="white" stroke-width="1.1" stroke-linecap="round"/><line x1="5" y1="14" x2="2.8" y2="15.8" stroke="white" stroke-width="1.1" stroke-linecap="round"/><line x1="15" y1="14" x2="17.2" y2="15.8" stroke="white" stroke-width="1.1" stroke-linecap="round"/><line x1="10" y1="6.5" x2="10" y2="15.5" stroke="rgba(255,255,255,.3)" stroke-width=".8"/><line x1="4.5" y1="11" x2="15.5" y2="11" stroke="rgba(255,255,255,.3)" stroke-width=".8"/></svg>
   </div>
+
   <div class="snav-item" data-section="chiese" onclick="scrollTo_('#chiese')">
     <span class="snav-label">Chiese</span>
-    <svg viewBox="0 0 22 22" fill="none"><ellipse cx="11" cy="12" rx="6" ry="5" stroke="white" stroke-width="1.3"/><ellipse cx="11" cy="5.5" rx="2.5" ry="2" stroke="white" stroke-width="1"/><line x1="5.5" y1="9" x2="3" y2="7" stroke="white" stroke-width="1" stroke-linecap="round"/><line x1="16.5" y1="9" x2="19" y2="7" stroke="white" stroke-width="1" stroke-linecap="round"/><line x1="5.5" y1="15" x2="3" y2="17" stroke="white" stroke-width="1" stroke-linecap="round"/><line x1="16.5" y1="15" x2="19" y2="17" stroke="white" stroke-width="1" stroke-linecap="round"/></svg>
+    <svg viewBox="0 0 20 20" fill="none"><ellipse cx="10" cy="11" rx="5.5" ry="4.5" stroke="white" stroke-width="1.3"/><ellipse cx="10" cy="4.8" rx="2.2" ry="1.8" stroke="white" stroke-width="1.1"/><line x1="5" y1="8.2" x2="2.8" y2="6.5" stroke="white" stroke-width="1.1" stroke-linecap="round"/><line x1="15" y1="8.2" x2="17.2" y2="6.5" stroke="white" stroke-width="1.1" stroke-linecap="round"/><line x1="5" y1="14" x2="2.8" y2="15.8" stroke="white" stroke-width="1.1" stroke-linecap="round"/><line x1="15" y1="14" x2="17.2" y2="15.8" stroke="white" stroke-width="1.1" stroke-linecap="round"/><line x1="10" y1="6.5" x2="10" y2="15.5" stroke="rgba(255,255,255,.3)" stroke-width=".8"/><line x1="4.5" y1="11" x2="15.5" y2="11" stroke="rgba(255,255,255,.3)" stroke-width=".8"/></svg>
   </div>
+
   <div class="snav-item" data-section="mare" onclick="scrollTo_('#mare')">
     <span class="snav-label">Mare</span>
-    <svg viewBox="0 0 22 22" fill="none"><path d="M1 9 Q4 5 7 9 Q10 13 13 9 Q16 5 19 8 Q21 10 22 9" stroke="white" stroke-width="1.5" stroke-linecap="round"/><path d="M1 14 Q4 10 7 14 Q10 18 13 14 Q16 10 19 13 Q21 15 22 14" stroke="rgba(255,255,255,.4)" stroke-width="1" stroke-linecap="round"/></svg>
+    <svg viewBox="0 0 20 20" fill="none"><ellipse cx="10" cy="11" rx="5.5" ry="4.5" stroke="white" stroke-width="1.3"/><ellipse cx="10" cy="4.8" rx="2.2" ry="1.8" stroke="white" stroke-width="1.1"/><line x1="5" y1="8.2" x2="2.8" y2="6.5" stroke="white" stroke-width="1.1" stroke-linecap="round"/><line x1="15" y1="8.2" x2="17.2" y2="6.5" stroke="white" stroke-width="1.1" stroke-linecap="round"/><line x1="5" y1="14" x2="2.8" y2="15.8" stroke="white" stroke-width="1.1" stroke-linecap="round"/><line x1="15" y1="14" x2="17.2" y2="15.8" stroke="white" stroke-width="1.1" stroke-linecap="round"/><line x1="10" y1="6.5" x2="10" y2="15.5" stroke="rgba(255,255,255,.3)" stroke-width=".8"/><line x1="4.5" y1="11" x2="15.5" y2="11" stroke="rgba(255,255,255,.3)" stroke-width=".8"/></svg>
   </div>
+
   <div class="snav-item" data-section="tartarughe" onclick="scrollTo_('#tartarughe')">
     <span class="snav-label">Caretta</span>
-    <svg viewBox="0 0 22 22" fill="none"><ellipse cx="11" cy="12.5" rx="6" ry="5" stroke="white" stroke-width="1.3" fill="rgba(158,204,232,.12)"/><ellipse cx="11" cy="5.5" rx="2.5" ry="2" stroke="white" stroke-width="1" fill="rgba(158,204,232,.12)"/><line x1="5.5" y1="9.5" x2="3" y2="7.5" stroke="white" stroke-width="1" stroke-linecap="round"/><line x1="16.5" y1="9.5" x2="19" y2="7.5" stroke="white" stroke-width="1" stroke-linecap="round"/><line x1="5.5" y1="15.5" x2="3" y2="17.5" stroke="white" stroke-width="1" stroke-linecap="round"/><line x1="16.5" y1="15.5" x2="19" y2="17.5" stroke="white" stroke-width="1" stroke-linecap="round"/><line x1="11" y1="7.5" x2="11" y2="17.5" stroke="rgba(255,255,255,.3)" stroke-width=".8"/><line x1="5" y1="12.5" x2="17" y2="12.5" stroke="rgba(255,255,255,.3)" stroke-width=".8"/></svg>
+    <svg viewBox="0 0 20 20" fill="none"><ellipse cx="10" cy="11" rx="5.5" ry="4.5" stroke="white" stroke-width="1.3"/><ellipse cx="10" cy="4.8" rx="2.2" ry="1.8" stroke="white" stroke-width="1.1"/><line x1="5" y1="8.2" x2="2.8" y2="6.5" stroke="white" stroke-width="1.1" stroke-linecap="round"/><line x1="15" y1="8.2" x2="17.2" y2="6.5" stroke="white" stroke-width="1.1" stroke-linecap="round"/><line x1="5" y1="14" x2="2.8" y2="15.8" stroke="white" stroke-width="1.1" stroke-linecap="round"/><line x1="15" y1="14" x2="17.2" y2="15.8" stroke="white" stroke-width="1.1" stroke-linecap="round"/><line x1="10" y1="6.5" x2="10" y2="15.5" stroke="rgba(255,255,255,.3)" stroke-width=".8"/><line x1="4.5" y1="11" x2="15.5" y2="11" stroke="rgba(255,255,255,.3)" stroke-width=".8"/></svg>
   </div>
+
   <div class="snav-item" data-section="social" onclick="scrollTo_('#social')">
     <span class="snav-label">Social</span>
-    <svg viewBox="0 0 22 22" fill="none"><path d="M1 13 Q5 7 9 13 Q13 19 17 13 Q19.5 9 22 11" stroke="white" stroke-width="1.5" stroke-linecap="round"/><circle cx="11" cy="13" r="2" stroke="rgba(158,204,232,.7)" stroke-width="1"/></svg>
+    <svg viewBox="0 0 20 20" fill="none"><ellipse cx="10" cy="11" rx="5.5" ry="4.5" stroke="white" stroke-width="1.3"/><ellipse cx="10" cy="4.8" rx="2.2" ry="1.8" stroke="white" stroke-width="1.1"/><line x1="5" y1="8.2" x2="2.8" y2="6.5" stroke="white" stroke-width="1.1" stroke-linecap="round"/><line x1="15" y1="8.2" x2="17.2" y2="6.5" stroke="white" stroke-width="1.1" stroke-linecap="round"/><line x1="5" y1="14" x2="2.8" y2="15.8" stroke="white" stroke-width="1.1" stroke-linecap="round"/><line x1="15" y1="14" x2="17.2" y2="15.8" stroke="white" stroke-width="1.1" stroke-linecap="round"/><line x1="10" y1="6.5" x2="10" y2="15.5" stroke="rgba(255,255,255,.3)" stroke-width=".8"/><line x1="4.5" y1="11" x2="15.5" y2="11" stroke="rgba(255,255,255,.3)" stroke-width=".8"/></svg>
   </div>
+
   <div class="snav-item" data-section="dintorni" onclick="scrollTo_('#dintorni')">
     <span class="snav-label">Dintorni</span>
-    <svg viewBox="0 0 22 22" fill="none"><path d="M1 11 Q11 1 22 11" stroke="white" stroke-width="1.5" stroke-linecap="round"/><path d="M1 15 Q11 5 22 15" stroke="rgba(255,255,255,.3)" stroke-width="1" stroke-linecap="round"/></svg>
+    <svg viewBox="0 0 20 20" fill="none"><ellipse cx="10" cy="11" rx="5.5" ry="4.5" stroke="white" stroke-width="1.3"/><ellipse cx="10" cy="4.8" rx="2.2" ry="1.8" stroke="white" stroke-width="1.1"/><line x1="5" y1="8.2" x2="2.8" y2="6.5" stroke="white" stroke-width="1.1" stroke-linecap="round"/><line x1="15" y1="8.2" x2="17.2" y2="6.5" stroke="white" stroke-width="1.1" stroke-linecap="round"/><line x1="5" y1="14" x2="2.8" y2="15.8" stroke="white" stroke-width="1.1" stroke-linecap="round"/><line x1="15" y1="14" x2="17.2" y2="15.8" stroke="white" stroke-width="1.1" stroke-linecap="round"/><line x1="10" y1="6.5" x2="10" y2="15.5" stroke="rgba(255,255,255,.3)" stroke-width=".8"/><line x1="4.5" y1="11" x2="15.5" y2="11" stroke="rgba(255,255,255,.3)" stroke-width=".8"/></svg>
   </div>
+
   <div class="snav-item" data-section="arrivare" onclick="scrollTo_('#arrivare')">
     <span class="snav-label">Arrivare</span>
-    <svg viewBox="0 0 22 22" fill="none"><path d="M1 13 Q5.5 7 10 13 Q14.5 19 19 13" stroke="white" stroke-width="1.5" stroke-linecap="round"/><path d="M17 10 L20 13 L17 16" stroke="rgba(158,204,232,.7)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    <svg viewBox="0 0 20 20" fill="none"><ellipse cx="10" cy="11" rx="5.5" ry="4.5" stroke="white" stroke-width="1.3"/><ellipse cx="10" cy="4.8" rx="2.2" ry="1.8" stroke="white" stroke-width="1.1"/><line x1="5" y1="8.2" x2="2.8" y2="6.5" stroke="white" stroke-width="1.1" stroke-linecap="round"/><line x1="15" y1="8.2" x2="17.2" y2="6.5" stroke="white" stroke-width="1.1" stroke-linecap="round"/><line x1="5" y1="14" x2="2.8" y2="15.8" stroke="white" stroke-width="1.1" stroke-linecap="round"/><line x1="15" y1="14" x2="17.2" y2="15.8" stroke="white" stroke-width="1.1" stroke-linecap="round"/><line x1="10" y1="6.5" x2="10" y2="15.5" stroke="rgba(255,255,255,.3)" stroke-width=".8"/><line x1="4.5" y1="11" x2="15.5" y2="11" stroke="rgba(255,255,255,.3)" stroke-width=".8"/></svg>
   </div>
+
 </nav>
 
 <!-- ══ COPERTINA ══ -->
@@ -567,7 +573,7 @@ footer {
       Cittadella
       <span>del Capo</span>
     </h1>
-    <p class="cop-desc fade fade-delay-2">Sul Tirreno cosentino, nel cuore della Riviera dei Cedri. Un posto quieto, con un palazzo che è Monumento Nazionale e un mare che non delude.</p>
+    <p class="cop-desc fade fade-delay-2">Sul Tirreno cosentino, nel cuore della Riviera dei Cedri. Un posto quieto, con un mare che non delude.</p>
     <div class="soc-pills fade fade-delay-3">
       <a href="https://www.instagram.com/cittadelladelcapo.cs?igsh=bWprNmRmMmNicjl5&utm_source=qr" target="_blank" rel="noopener" class="pill">
         <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
@@ -579,7 +585,12 @@ footer {
       </a>
     </div>
   </div>
-  <div class="scroll-ind"><div class="scroll-dot"></div><span>Scorri</span></div>
+  <div class="scroll-arrow" onclick="scrollTo_('#zone')">
+    <svg viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M14 4 L14 22" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+      <path d="M7 16 L14 23 L21 16" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </div>
 </section>
 
 <!-- ══ ZONE ══ -->
@@ -647,7 +658,7 @@ footer {
 
 <!-- ══ CHIESE ══ -->
 <section id="chiese" class="schermo">
-  <div class="schermo-bg" style="background-image:url('https://raw.githubusercontent.com/cittadellacs/imgcittadella/main/casina.jpg');"></div>
+  <div class="schermo-bg" style="background-image:url('https://raw.githubusercontent.com/cittadellacs/imgcittadella/main/chiesa.jpg');"></div>
   <div class="schermo-overlay"></div>
   <div class="schermo-cnt" style="max-width:720px;">
     <span class="lbl fade">Fede e comunità</span>
@@ -673,12 +684,6 @@ footer {
   </div>
 </section>
 
-<!-- ══ FOTO CIM2825 ══ -->
-<section class="schermo" style="min-height:70vh;pointer-events:none;">
-  <div class="schermo-bg" style="background-image:url('https://raw.githubusercontent.com/cittadellacs/imgcittadella/main/CIM2825.jpg');background-attachment:scroll;"></div>
-  <div class="schermo-overlay" style="background:rgba(11,31,51,.2);"></div>
-</section>
-
 <!-- ══ MARE ══ -->
 <section id="mare" class="schermo">
   <div class="schermo-bg" style="background-image:url('https://raw.githubusercontent.com/cittadellacs/imgcittadella/main/vistaalto.jpg');"></div>
@@ -686,10 +691,10 @@ footer {
   <div class="schermo-cnt" style="max-width:760px;">
     <span class="lbl fade">Mare e Natura</span>
     <h2 class="ttl fade">Il mare di Cittadella</h2>
-    <p class="bdy fade" style="margin-bottom:2rem;">Fondali trasparenti, litorale tra sabbia e scogliera. Da giugno a settembre il mare di Cittadella non delude.</p>
+    <p class="bdy fade" style="margin-bottom:2rem;">Fondali trasparenti, litorale tra sabbia e scogliera. Il mare di Cittadella non delude.</p>
     <div class="spiagge-list">
       <div class="sp fade"><div class="sp-n">Spiaggia di Cittadella</div><p class="sp-t">La principale. Sabbia e ciottoli, lidi attrezzati e zone libere. Acqua calma, adatta alle famiglie.</p></div>
-      <div class="sp fade"><div class="sp-n">Spiaggia di Santa Maria</div><p class="sp-t">A sud, raggiungibile in auto. Poco frequentata, apprezzata da chi cerca tranquillità.</p></div>
+      <div class="sp fade"><div class="sp-n">Spiaggia di Santa Maria</div><p class="sp-t">A sud, poco frequentata e apprezzata da chi cerca tranquillità. Raggiungibile a piedi, in auto o via mare.</p></div>
       <div class="sp fade"><div class="sp-n">Spiaggia di Paneduro</div><p class="sp-t">A nord. Spiaggia libera e naturale, nota per la nidificazione delle tartarughe Caretta caretta.</p></div>
       <div class="sp fade"><div class="sp-n">Spiaggia di Cavinia</div><p class="sp-t">Al confine con Cetraro, vicino alla Grotta delle Tre Colonne. Ideale per chi esplora via mare.</p></div>
     </div>
@@ -741,16 +746,22 @@ footer {
     <a href="https://www.instagram.com/cittadelladelcapo.cs?igsh=bWprNmRmMmNicjl5&utm_source=qr" target="_blank" rel="noopener" class="ig-link">
       <div class="ig-link-left">
         <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
-        @cittadelladelcapo.cs
+        <div><div style="font-size:.82rem;font-weight:400;">@cittadelladelcapo.cs</div><div style="font-size:.65rem;color:rgba(255,255,255,.45);margin-top:.1rem;">Instagram</div></div>
       </div>
-      <span class="ig-link-anno">dal 2023</span>
+      <div style="text-align:right;">
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:1.6rem;letter-spacing:.04em;color:var(--acqua);line-height:1;">2023</div>
+        <div style="font-size:.55rem;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.35);">dal</div>
+      </div>
     </a>
     <a href="https://www.facebook.com/share/16deYDQdUn/?mibextid=wwXIfr" target="_blank" rel="noopener" class="ig-link">
       <div class="ig-link-left">
         <svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
-        Cittadella del Capo
+        <div><div style="font-size:.82rem;font-weight:400;">Cittadella del Capo</div><div style="font-size:.65rem;color:rgba(255,255,255,.45);margin-top:.1rem;">Facebook</div></div>
       </div>
-      <span class="ig-link-anno">dal 2014</span>
+      <div style="text-align:right;">
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:1.6rem;letter-spacing:.04em;color:var(--acqua);line-height:1;">2014</div>
+        <div style="font-size:.55rem;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.35);">dal</div>
+      </div>
     </a>
   </div>
 </section>
@@ -803,30 +814,14 @@ footer {
   </div>
 </section>
 
-<!-- ══ DISCLAIMER ══ -->
-<section id="disclaimer">
-  <p class="disclaimer-testo">
-    <strong>Nota informativa.</strong> Questo sito è un progetto editoriale indipendente, interamente autofinanziato, dedicato alla valorizzazione di Cittadella del Capo e del suo territorio. Le informazioni presenti sono raccolte con cura, ma potrebbero contenere imprecisioni o non essere aggiornate. Non ci assumiamo responsabilità per eventuali errori, omissioni o variazioni rispetto alla realtà. Parte del materiale pubblicato proviene da fonti esterne: qualora si ravvisassero problemi di attribuzione, invitiamo a segnalarcelo. <strong>Accogliamo volentieri correzioni, integrazioni e suggerimenti da parte di chi conosce il paese meglio di chiunque altro.</strong> Questo progetto è aperto al contributo della comunità: se hai informazioni, foto o storie che vuoi condividere, contattaci sui nostri profili social.
-  </p>
-</section>
-
 <!-- ══ FOOTER ══ -->
 <footer>
   <div class="footer-titolo" aria-hidden="true">CITTADELLA DEL CAPO</div>
   <div class="footer-cnt">
-    <div class="footer-nome">Cittadella del Capo</div>
-    <div class="footer-sub">Riviera dei Cedri · Calabria · Italia</div>
-    <div class="footer-soc">
-      <a href="https://www.instagram.com/cittadelladelcapo.cs?igsh=bWprNmRmMmNicjl5&utm_source=qr" target="_blank" rel="noopener" class="footer-btn">
-        <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
-        Instagram
-      </a>
-      <a href="https://www.facebook.com/share/16deYDQdUn/?mibextid=wwXIfr" target="_blank" rel="noopener" class="footer-btn">
-        <svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
-        Facebook
-      </a>
-    </div>
-    <div class="footer-copy">© 2026 Cittadella del Capo · Frazione di Bonifati (CS) · Calabria, Italia</div>
+    <p class="disclaimer-testo" style="position:relative;z-index:2;max-width:560px;margin:0 auto;color:rgba(255,255,255,.32);">
+      <strong style="color:rgba(255,255,255,.5);font-style:normal;">Nota informativa.</strong> Questo sito è un progetto editoriale indipendente, interamente autofinanziato, dedicato alla valorizzazione di Cittadella del Capo. Le informazioni potrebbero contenere imprecisioni. Non ci assumiamo responsabilità per eventuali errori o variazioni rispetto alla realtà. Parte del materiale proviene da fonti esterne: per problemi di attribuzione, segnalarcelo. <strong style="color:rgba(255,255,255,.5);font-style:normal;">Accogliamo volentieri correzioni e suggerimenti da parte di chi conosce il paese.</strong> Contattaci sui profili social.
+    </p>
+    <div class="footer-copy" style="margin-top:2rem;">© 2026 Cittadella del Capo · Frazione di Bonifati (CS) · Calabria, Italia</div>
   </div>
 </footer>
 
@@ -836,23 +831,6 @@ const obs = new IntersectionObserver(entries=>{
   entries.forEach((e,i)=>{ if(e.isIntersecting) setTimeout(()=>e.target.classList.add('in'),i*55); });
 },{threshold:0.06});
 document.querySelectorAll('.fade').forEach(el=>obs.observe(el));
-
-/* Cursore personalizzato desktop */
-const cur = document.getElementById('cur');
-const ring = document.getElementById('curRing');
-if(cur && ring){
-  let mx=0,my=0,rx=0,ry=0;
-  document.addEventListener('mousemove',e=>{
-    mx=e.clientX; my=e.clientY;
-    cur.style.transform=`translate(${mx-4}px,${my-4}px)`;
-  });
-  function animRing(){
-    rx+=(mx-rx)*.12; ry+=(my-ry)*.12;
-    ring.style.transform=`translate(${rx-18}px,${ry-18}px)`;
-    requestAnimationFrame(animRing);
-  }
-  animRing();
-}
 
 /* Nav laterale: scroll smooth */
 function scrollTo_(sel){
