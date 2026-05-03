@@ -468,35 +468,40 @@ body {
 /* ── BOTTONE SCOPRILE ── */
 .din-scopri-btn {
   display:inline-flex; align-items:center; gap:.7rem;
-  background:none; border:1px solid rgba(158,204,232,.3);
+  background:none; border:none;
   cursor:pointer; color:var(--acqua);
   font-family:'DM Sans', sans-serif;
   font-size:.72rem; font-weight:400;
   letter-spacing:.25em; text-transform:uppercase;
-  padding:.7rem 1.6rem;
-  position:relative; overflow:hidden;
-  transition:border-color .3s, background .3s, transform .2s;
+  padding:.4rem 0;
+  transition:opacity .2s;
   animation:scoprile-pulse 2.8s ease-in-out infinite;
 }
 @keyframes scoprile-pulse {
-  0%,100%{ box-shadow:0 0 0 0 rgba(158,204,232,0); }
-  50%{ box-shadow:0 0 0 7px rgba(158,204,232,.12); }
+  0%,100%{ opacity:.65; }
+  50%{ opacity:1; }
 }
 .din-scopri-btn:hover {
-  border-color:var(--acqua);
-  background:rgba(158,204,232,.06);
-  transform:translateY(-1px);
+  opacity:1;
   animation:none;
 }
-.din-scopri-btn:active { transform:translateY(0); }
 .din-scopri-btn svg {
   width:12px; height:8px; fill:none;
   stroke:var(--acqua); stroke-width:2;
   stroke-linecap:round; stroke-linejoin:round;
   transition:transform .35s ease;
   flex-shrink:0;
+  animation:arrow-bounce 2.8s ease-in-out infinite;
 }
-.din-scopri-btn.open svg { transform:rotate(180deg); }
+@keyframes arrow-bounce {
+  0%,100%{ transform:translateY(0); }
+  50%{ transform:translateY(3px); }
+}
+.din-scopri-btn.open svg {
+  transform:rotate(180deg);
+  animation:none;
+}
+.din-scopri-btn:hover svg { animation:none; }
 
 /* ── ARRIVARE ── */
 #arrivare { background:var(--blu); padding:6rem 2rem; text-align:center; }
@@ -797,11 +802,11 @@ footer {
       </div>
       <div class="luogo fade">
         <span class="l-n">06</span>
-        <div><div class="l-title">Sentiero Gradini San Vincenzo</div><p class="l-desc">Antico tratto di mulattiera che da Torrevecchia e Cirimarco portava al mare. Miracolosamente intatto nella struttura originale, con gradini formati da pietre di mare sistemate sullo scoglio.</p></div>
+        <div><div class="l-title">Sentiero Gradini San Vincenzo</div><p class="l-desc">Antico tratto di mulattiera che da Torrevecchia e Cirimarco portava al mare. Nel corso degli anni ha subito interventi parziali di riammodernamento, ma conserva ancora in buona parte la struttura originale con gradini formati da pietre di mare.</p></div>
       </div>
       <div class="luogo fade">
         <span class="l-n">07</span>
-        <div><div class="l-title">Grotta di Rizzo (Tre Colonne)</div><p class="l-desc">Formazione naturale nella zona di Cavinia, al confine tra il comune di Cetraro e quello di Bonifati. Raggiungibile in macchina o a piedi da Santa Maria, oppure via mare per chi esplora la costa in kayak o in snorkeling.</p></div>
+        <div><div class="l-title">Le Tre Colonne</div><p class="l-desc">Formazione naturale nella zona di Cavinia, al confine tra il comune di Cetraro e quello di Bonifati. Raggiungibile in macchina o a piedi da Santa Maria, oppure via mare per chi esplora la costa in kayak o in snorkeling.</p></div>
       </div>
     </div>
   </div>
@@ -966,11 +971,11 @@ footer {
     </button>
     <div id="dintorni-extra">
       <div class="din-list-inner">
-        <div class="din-row"><span class="din-n">Sangineto</span><span class="din-desc">Cascata del Vuglio, Castello del Principe e altre attrattive turistiche.</span><span class="din-d">~5 min</span></div>
-        <div class="din-row"><span class="din-n">Belvedere Marittimo</span><span class="din-desc">Centro storico medievale su un promontorio con castello e marina attrezzata.</span><span class="din-d">~10 min</span></div>
+        <div class="din-row"><span class="din-n">Sangineto</span><span class="din-desc">Comune limitrofo con la suggestiva Cascata del Vuglio, il Castello del Principe e altre attrattive turistiche.</span><span class="din-d">~5 min</span></div>
+        <div class="din-row"><span class="din-n">Belvedere Marittimo</span><span class="din-desc">Centro storico medievale su un promontorio con castello e marina attrezzata con attività commerciali e lidi.</span><span class="din-d">~10 min</span></div>
         <div class="din-row"><span class="din-n">Cetraro</span><span class="din-desc">Porto turistico, borgo antico e spiagge organizzate.</span><span class="din-d">~10 min</span></div>
         <div class="din-row"><span class="din-n">Terme Luigiane</span><span class="din-desc">Tra gli impianti termali più importanti del Sud Italia. Acque sulfuree ad Acquappesa.</span><span class="din-d">~15 min</span></div>
-        <div class="din-row"><span class="din-n">Diamante</span><span class="din-desc">La città dei murales. Lungomari, vicoletti e il cinema più vicino a Cittadella.</span><span class="din-d">~15 min</span></div>
+        <div class="din-row"><span class="din-n">Diamante</span><span class="din-desc">La città dei murales, punto di riferimento turistico della costa per i suoi lungomari e i vicoletti con attività commerciali. Sede anche del cinema più vicino a Cittadella.</span><span class="din-d">~15 min</span></div>
         <div class="din-row"><span class="din-n">Guardia Piemontese</span><span class="din-desc">Borgo occitano dove si parla ancora una variante del provenzale antico.</span><span class="din-d">~15 min</span></div>
         <div class="din-row"><span class="din-n">Scalea</span><span class="din-desc">Spiagge ampie e borgo medievale, centro della Riviera dei Cedri e importante snodo ferroviario.</span><span class="din-d">~20 min</span></div>
         <div class="din-row"><span class="din-n">Paola</span><span class="din-desc">Santuario di San Francesco da Paola. Principale nodo ferroviario della costa.</span><span class="din-d">~20 min</span></div>
