@@ -334,108 +334,169 @@ body {
   padding:6rem 2rem;
   text-align:center;
 }
-/* header account */
-.ig-header {
-  display:flex; align-items:center; gap:.9rem;
-  max-width:480px; margin:2.5rem auto 1.5rem;
-  padding-bottom:1.2rem;
-  border-bottom:1px solid var(--ln);
-  text-align:left;
+.soc-card-wrap {
+  display:flex; flex-direction:column; gap:1px;
+  max-width:420px; margin:3rem auto 0;
 }
-.ig-avatar {
-  width:44px; height:44px; border-radius:50%;
-  background:linear-gradient(135deg, var(--az), var(--acqua));
-  display:flex; align-items:center; justify-content:center;
-  flex-shrink:0;
-}
-.ig-avatar svg { width:22px; height:22px; fill:#0b1f33; }
-.ig-acc-handle { font-size:.88rem; font-weight:400; color:#fff; }
-.ig-acc-sub { font-size:.62rem; color:var(--acqua); letter-spacing:.08em; margin-top:.1rem; }
-/* griglia post simulata */
-.ig-grid {
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:3px;
-  max-width:480px;
-  margin:0 auto;
-}
-.ig-cell {
-  aspect-ratio:1/1;
-  background:rgba(255,255,255,.04);
-  position:relative; overflow:hidden;
-  cursor:pointer;
-}
-.ig-cell-img {
-  width:100%; height:100%;
-  object-fit:cover;
-  display:block;
-  transition:transform .4s ease, filter .4s ease;
-}
-.ig-cell:hover .ig-cell-img { transform:scale(1.06); filter:brightness(1.1); }
-.ig-cell-overlay {
-  position:absolute; inset:0;
-  background:rgba(11,31,51,.55);
-  display:flex; align-items:center; justify-content:center;
-  opacity:0; transition:opacity .3s;
-}
-.ig-cell:hover .ig-cell-overlay { opacity:1; }
-.ig-cell-overlay svg { width:20px; height:20px; fill:#fff; }
-/* placeholder per celle senza immagine reale */
-.ig-placeholder {
-  width:100%; height:100%;
-  background:linear-gradient(135deg, rgba(74,154,212,.15), rgba(22,51,80,.8));
-  display:flex; align-items:center; justify-content:center;
-}
-.ig-placeholder svg { width:24px; height:24px; fill:rgba(158,204,232,.3); }
-/* link profilo */
-.ig-cta {
-  display:inline-flex; align-items:center; gap:.5rem;
-  margin-top:1.5rem;
-  font-size:.72rem; font-weight:400; letter-spacing:.12em;
-  text-transform:uppercase; color:var(--acqua);
-  text-decoration:none; transition:opacity .2s;
-}
-.ig-cta:hover { opacity:.7; }
-.ig-cta::before { content:'→ '; }
-/* card facebook */
-.fb-card {
-  display:flex; align-items:center; gap:1rem;
-  max-width:480px; margin:2rem auto 0;
-  padding:1rem 1.2rem;
+.soc-card {
+  display:flex; align-items:center; justify-content:space-between;
+  padding:1.1rem 1.4rem;
   border:1px solid var(--ln);
   color:#fff; text-decoration:none;
   background:rgba(255,255,255,.03);
   transition:background .25s, border-color .25s;
 }
-.fb-card:hover { background:rgba(74,154,212,.08); border-color:var(--acqua); }
-.fb-card svg { width:20px; height:20px; fill:currentColor; flex-shrink:0; opacity:.7; }
-.fb-info { text-align:left; }
-.fb-handle { font-size:.84rem; font-weight:400; }
-.fb-meta { font-size:.62rem; color:var(--acqua); letter-spacing:.08em; margin-top:.1rem; }
-
-/* ── DINTORNI ── */
-#dintorni .schermo-bg {
-  background-image:url('https://raw.githubusercontent.com/cittadellacs/imgcittadella/main/cittadella.jpg');
+.soc-card + .soc-card { margin-top:-1px; }
+.soc-card:hover { background:rgba(74,154,212,.09); border-color:var(--acqua); z-index:1; position:relative; }
+.soc-card-left { display:flex; align-items:center; gap:.8rem; }
+.soc-card-left svg { width:18px; height:18px; fill:currentColor; opacity:.75; flex-shrink:0; }
+.soc-card-handle { font-size:.86rem; font-weight:400; }
+.soc-card-right { text-align:right; }
+.soc-card-anno-lbl { font-size:.5rem; letter-spacing:.2em; text-transform:uppercase; color:rgba(255,255,255,.3); }
+.soc-card-anno {
+  font-family:'Bebas Neue', sans-serif;
+  font-size:1.7rem; letter-spacing:.04em;
+  color:var(--acqua); line-height:1;
 }
-.dintorni-list {
-  margin-top:3rem; width:100%;
-  max-width:680px; margin-inline:auto;
+
+/* ── EMAIL ── */
+#email-contact {
+  background:var(--blu);
+  padding:6rem 2rem;
+  text-align:center;
+  position:relative; overflow:hidden;
+}
+#email-contact::before {
+  content:'';
+  position:absolute; inset:0;
+  background:radial-gradient(ellipse at center, rgba(74,154,212,.05) 0%, transparent 70%);
+  pointer-events:none;
+}
+.email-line { width:1px; height:50px; background:linear-gradient(to bottom, transparent, var(--acqua), transparent); margin:2rem auto; }
+.email-addr {
+  display:inline-flex; align-items:center; gap:.6rem;
+  margin:1.8rem auto;
+  font-family:'Bebas Neue', sans-serif;
+  font-size:clamp(1.2rem,4vw,2rem);
+  letter-spacing:.06em; color:var(--acqua);
+  text-decoration:none;
+  transition:opacity .2s;
+}
+.email-addr:hover { opacity:.7; }
+.email-addr svg { width:22px; height:22px; fill:currentColor; opacity:.7; }
+
+/* ── STORIA TENDINA ── */
+.storia-intro {
+  max-width:660px; margin:0 auto 1.5rem;
+  font-size:clamp(.88rem,2.2vw,.98rem);
+  font-weight:300; line-height:2;
+  color:rgba(255,255,255,.58);
   text-align:left;
 }
-.dintorno {
-  display:grid; grid-template-columns:1fr auto;
-  gap:1.5rem; align-items:baseline;
-  padding:1.3rem 0;
+.storia-toggle {
+  display:flex; align-items:center; justify-content:center; gap:.6rem;
+  margin:0 auto;
+  background:none; border:none; cursor:pointer;
+  font-family:'DM Sans', sans-serif;
+  font-size:.68rem; font-weight:400;
+  letter-spacing:.2em; text-transform:uppercase;
+  color:var(--acqua); padding:.6rem 1rem;
+  border-bottom:1px solid rgba(158,204,232,.2);
+  transition:opacity .2s;
+}
+.storia-toggle:hover { opacity:.7; }
+.storia-toggle svg {
+  width:12px; height:12px; fill:none;
+  stroke:var(--acqua); stroke-width:2;
+  stroke-linecap:round; stroke-linejoin:round;
+  transition:transform .35s ease;
+  flex-shrink:0;
+}
+.storia-toggle.open svg { transform:rotate(180deg); }
+.storia-extra {
+  max-width:660px; margin:0 auto;
+  font-size:clamp(.88rem,2.2vw,.98rem);
+  font-weight:300; line-height:2;
+  color:rgba(255,255,255,.45);
+  text-align:left;
+  overflow:hidden;
+  max-height:0;
+  transition:max-height .5s ease, opacity .4s ease, margin .4s ease;
+  opacity:0;
+}
+.storia-extra.open {
+  max-height:2000px;
+  opacity:1;
+  margin-top:1.4rem;
+}
+.storia-extra p { margin-bottom:1.4rem; }
+.storia-extra p:last-child { margin-bottom:0; }
+
+/* ── DINTORNI PANNELLO ── */
+#dintorni-extra {
+  width:100%; max-width:680px;
+  margin:0 auto; text-align:left;
+  display:none;
+}
+#dintorni-extra.open { display:block; }
+.din-list-inner { margin-top:1.4rem; }
+.din-row {
+  display:grid;
+  grid-template-columns:1fr 1fr auto;
+  gap:.8rem; align-items:baseline;
+  padding:1.1rem 0;
   border-bottom:1px solid var(--ln);
-  transition:opacity .25s;
 }
-.dintorno:hover { opacity:.7; }
-.din-n {
+@media(max-width:560px){
+  .din-row { grid-template-columns:1fr auto; }
+  .din-desc { display:none; }
+}
+.din-row .din-n {
   font-family:'Bebas Neue', sans-serif;
-  font-size:1.15rem; letter-spacing:.04em; color:#fff;
+  font-size:1.1rem; letter-spacing:.04em; color:#fff;
 }
-.din-sub { font-size:.82rem; font-weight:300; color:var(--gr); margin-top:.2rem; line-height:1.6; }
-.din-d { font-size:.65rem; font-weight:300; color:var(--acqua); letter-spacing:.1em; white-space:nowrap; text-align:right; }
+.din-desc {
+  font-size:.82rem; font-weight:300;
+  color:rgba(255,255,255,.45); line-height:1.6;
+}
+.din-row .din-d {
+  font-size:.62rem; font-weight:300;
+  color:var(--acqua); letter-spacing:.1em;
+  white-space:nowrap; text-align:right;
+}
+
+/* ── BOTTONE SCOPRILE ── */
+.din-scopri-btn {
+  display:inline-flex; align-items:center; gap:.7rem;
+  background:none; border:1px solid rgba(158,204,232,.3);
+  cursor:pointer; color:var(--acqua);
+  font-family:'DM Sans', sans-serif;
+  font-size:.72rem; font-weight:400;
+  letter-spacing:.25em; text-transform:uppercase;
+  padding:.7rem 1.6rem;
+  position:relative; overflow:hidden;
+  transition:border-color .3s, background .3s, transform .2s;
+  animation:scoprile-pulse 2.8s ease-in-out infinite;
+}
+@keyframes scoprile-pulse {
+  0%,100%{ box-shadow:0 0 0 0 rgba(158,204,232,0); }
+  50%{ box-shadow:0 0 0 7px rgba(158,204,232,.12); }
+}
+.din-scopri-btn:hover {
+  border-color:var(--acqua);
+  background:rgba(158,204,232,.06);
+  transform:translateY(-1px);
+  animation:none;
+}
+.din-scopri-btn:active { transform:translateY(0); }
+.din-scopri-btn svg {
+  width:12px; height:8px; fill:none;
+  stroke:var(--acqua); stroke-width:2;
+  stroke-linecap:round; stroke-linejoin:round;
+  transition:transform .35s ease;
+  flex-shrink:0;
+}
+.din-scopri-btn.open svg { transform:rotate(180deg); }
 
 /* ── ARRIVARE ── */
 #arrivare { background:var(--blu); padding:6rem 2rem; text-align:center; }
@@ -751,8 +812,14 @@ footer {
   <div class="storia-line"></div>
   <span class="lbl fade" style="text-align:center">Origini</span>
   <h2 class="ttl fade" style="max-width:700px;margin:0 auto 2rem;">La storia del paese</h2>
-  <div class="storia-testo fade">
+  <div class="storia-intro fade">
     <p>Cittadella del Capo, a torto ritenuta meno antica di Bonifati, è sempre esistita come propaggine meridionale di Fella — l'odierna Jardino. Lo testimonia il toponimo Greco, sopravvissuto intatto: un rione a picco sul mare a 109 metri sul livello del mare, tra la scogliera e il Fiume San Pietro. Attorno a quella zona sono stati condotti gli scavi archeologici più significativi dell'area, a riprova della presenza, già in epoca arcaica, di pastori seminomadi brezio-greci.</p>
+  </div>
+  <button class="storia-toggle fade" id="storiaBtn" onclick="toggleStoria()">
+    <svg viewBox="0 0 12 8"><path d="M1 1l5 5 5-5"/></svg>
+    Continua a leggere
+  </button>
+  <div class="storia-extra" id="storiaExtra">
     <p>Il nucleo originario si sviluppava lungo la via che partiva dalle campagne di Fella, attraversava il Greco — una marineria di pescatori-contadini — e scendeva fino alla costa, dove sulla scogliera sorgeva la Torre Viceregnale di Fella. Solo nella seconda metà dell'Ottocento l'abitato si espanse verso la marina e lungo la via Nazionale, con la costruzione dei tre Palazzi De Aloe. Agli inizi del Novecento, attorno alla neonata stazione ferroviaria, cominciò a prendere forma il rione a nord.</p>
     <p>La Marineria del Greco è l'autentico centro storico del paese. L'antico Sentiero Gradini San Vincenzo, tratto superstite della vecchia mulattiera tra Torrevecchia e il mare, ne racconta ancora oggi la struttura originale.</p>
   </div>
@@ -847,34 +914,42 @@ footer {
 <section id="social">
   <span class="lbl fade">Seguici</span>
   <h2 class="ttl-sm fade">Sui social</h2>
-  <p class="bdy fade" style="max-width:380px;margin:0 auto;">Scatti, momenti e aggiornamenti da Cittadella del Capo.</p>
-
-  <!-- Instagram -->
-  <div class="ig-header fade">
-    <div class="ig-avatar">
-      <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
-    </div>
-    <div>
-      <div class="ig-acc-handle">@cittadelladelcapo.cs</div>
-      <div class="ig-acc-sub">Instagram · dal 2023</div>
-    </div>
+  <p class="bdy fade" style="max-width:360px;margin:0 auto;">Scatti, momenti e aggiornamenti da Cittadella del Capo.</p>
+  <div class="soc-card-wrap fade">
+    <a href="https://www.instagram.com/cittadelladelcapo.cs?igsh=bWprNmRmMmNicjl5&utm_source=qr" target="_blank" rel="noopener" class="soc-card">
+      <div class="soc-card-left">
+        <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+        <span class="soc-card-handle">@cittadelladelcapo.cs</span>
+      </div>
+      <div class="soc-card-right">
+        <div class="soc-card-anno-lbl">dal</div>
+        <div class="soc-card-anno">2023</div>
+      </div>
+    </a>
+    <a href="https://www.facebook.com/share/16deYDQdUn/?mibextid=wwXIfr" target="_blank" rel="noopener" class="soc-card">
+      <div class="soc-card-left">
+        <svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+        <span class="soc-card-handle">Cittadella del Capo</span>
+      </div>
+      <div class="soc-card-right">
+        <div class="soc-card-anno-lbl">dal</div>
+        <div class="soc-card-anno">2014</div>
+      </div>
+    </a>
   </div>
+</section>
 
-  <!-- griglia 3×3 con immagini reali dal repo -->
-  <div class="ig-grid fade" id="igGrid">
-    <!-- Le celle vengono popolate dal JS sotto -->
-  </div>
-
-  <a href="https://www.instagram.com/cittadelladelcapo.cs?igsh=bWprNmRmMmNicjl5&utm_source=qr" target="_blank" rel="noopener" class="ig-cta fade">Apri su Instagram</a>
-
-  <!-- Facebook -->
-  <a href="https://www.facebook.com/share/16deYDQdUn/?mibextid=wwXIfr" target="_blank" rel="noopener" class="fb-card fade">
-    <svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
-    <div class="fb-info">
-      <div class="fb-handle">Cittadella del Capo</div>
-      <div class="fb-meta">Facebook · dal 2014</div>
-    </div>
+<!-- ══ EMAIL CONTATTI ══ -->
+<section id="email-contact">
+  <div class="email-line"></div>
+  <span class="lbl fade" style="text-align:center">Scrivici</span>
+  <h2 class="ttl-sm fade" style="max-width:600px;margin:0 auto 1rem;">Hai qualcosa da dire?</h2>
+  <p class="bdy fade" style="max-width:480px;margin:0 auto;">Idee, segnalazioni, proposte di collaborazione o anche solo un saluto. Questo progetto vive di chi conosce e ama Cittadella del Capo — ogni contributo è benvenuto.</p>
+  <a href="mailto:fella@cittadelladelcapo.info" class="email-addr fade">
+    <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+    fella@cittadelladelcapo.info
   </a>
+  <div class="email-line"></div>
 </section>
 
 <!-- ══ DINTORNI ══ -->
@@ -884,18 +959,24 @@ footer {
   <div class="schermo-cnt" style="max-width:800px;">
     <span class="lbl fade">Nelle vicinanze</span>
     <h2 class="ttl-sm fade">Le bellezze intorno</h2>
-    <p class="bdy fade" style="margin-bottom:2rem;">Cittadella del Capo è una base naturale per esplorare la costa cosentina.</p>
-    <div class="dintorni-list">
-      <div class="dintorno fade"><div><div class="din-n">Sangineto</div><div class="din-sub">Comune limitrofo con la suggestiva Cascata del Vuglio, il Castello del Principe e altre attrattive turistiche.</div></div><span class="din-d">~5 min</span></div>
-      <div class="dintorno fade"><div><div class="din-n">Belvedere Marittimo</div><div class="din-sub">Centro storico medievale su un promontorio con castello e marina attrezzata con attività commerciali e lidi.</div></div><span class="din-d">~10 min</span></div>
-      <div class="dintorno fade"><div><div class="din-n">Cetraro</div><div class="din-sub">Porto turistico, borgo antico e spiagge organizzate.</div></div><span class="din-d">~10 min</span></div>
-      <div class="dintorno fade"><div><div class="din-n">Terme Luigiane</div><div class="din-sub">Tra gli impianti termali più importanti del Sud Italia. Acque sulfuree ad Acquappesa.</div></div><span class="din-d">~15 min</span></div>
-      <div class="dintorno fade"><div><div class="din-n">Diamante</div><div class="din-sub">La città dei murales, punto di riferimento turistico della costa per i suoi lungomari e i vicoletti con attività commerciali. Sede anche del cinema più vicino a Cittadella.</div></div><span class="din-d">~15 min</span></div>
-      <div class="dintorno fade"><div><div class="din-n">Guardia Piemontese</div><div class="din-sub">Borgo occitano dove si parla ancora una variante del provenzale antico.</div></div><span class="din-d">~15 min</span></div>
-      <div class="dintorno fade"><div><div class="din-n">Scalea</div><div class="din-sub">Spiagge ampie e borgo medievale, centro della Riviera dei Cedri e importante snodo ferroviario.</div></div><span class="din-d">~20 min</span></div>
-      <div class="dintorno fade"><div><div class="din-n">Paola</div><div class="din-sub">Santuario di San Francesco da Paola. Principale nodo ferroviario della costa.</div></div><span class="din-d">~20 min</span></div>
-      <div class="dintorno fade"><div><div class="din-n">Cirella</div><div class="din-sub">Ruderi romani, isolotto e spiagge libere di grande bellezza.</div></div><span class="din-d">~30 min</span></div>
-      <div class="dintorno fade"><div><div class="din-n">Isola di Dino</div><div class="din-sub">La più grande isola della Calabria. Grotte marine, acque smeraldo.</div></div><span class="din-d">~35 min</span></div>
+    <p class="bdy fade" style="margin-bottom:1.8rem;">Cittadella del Capo è una base naturale per esplorare la costa cosentina.</p>
+    <button class="din-scopri-btn fade" id="dintorniBtn" onclick="toggleDintorni()">
+      <span id="dintorniBtnTxt">Scoprile</span>
+      <svg id="dintorniBtnArrow" viewBox="0 0 12 8"><path d="M1 1l5 5 5-5"/></svg>
+    </button>
+    <div id="dintorni-extra">
+      <div class="din-list-inner">
+        <div class="din-row"><span class="din-n">Sangineto</span><span class="din-desc">Cascata del Vuglio, Castello del Principe e altre attrattive turistiche.</span><span class="din-d">~5 min</span></div>
+        <div class="din-row"><span class="din-n">Belvedere Marittimo</span><span class="din-desc">Centro storico medievale su un promontorio con castello e marina attrezzata.</span><span class="din-d">~10 min</span></div>
+        <div class="din-row"><span class="din-n">Cetraro</span><span class="din-desc">Porto turistico, borgo antico e spiagge organizzate.</span><span class="din-d">~10 min</span></div>
+        <div class="din-row"><span class="din-n">Terme Luigiane</span><span class="din-desc">Tra gli impianti termali più importanti del Sud Italia. Acque sulfuree ad Acquappesa.</span><span class="din-d">~15 min</span></div>
+        <div class="din-row"><span class="din-n">Diamante</span><span class="din-desc">La città dei murales. Lungomari, vicoletti e il cinema più vicino a Cittadella.</span><span class="din-d">~15 min</span></div>
+        <div class="din-row"><span class="din-n">Guardia Piemontese</span><span class="din-desc">Borgo occitano dove si parla ancora una variante del provenzale antico.</span><span class="din-d">~15 min</span></div>
+        <div class="din-row"><span class="din-n">Scalea</span><span class="din-desc">Spiagge ampie e borgo medievale, centro della Riviera dei Cedri e importante snodo ferroviario.</span><span class="din-d">~20 min</span></div>
+        <div class="din-row"><span class="din-n">Paola</span><span class="din-desc">Santuario di San Francesco da Paola. Principale nodo ferroviario della costa.</span><span class="din-d">~20 min</span></div>
+        <div class="din-row"><span class="din-n">Cirella</span><span class="din-desc">Ruderi romani, isolotto e spiagge libere di grande bellezza.</span><span class="din-d">~30 min</span></div>
+        <div class="din-row"><span class="din-n">Isola di Dino</span><span class="din-desc">La più grande isola della Calabria. Grotte marine, acque smeraldo.</span><span class="din-d">~35 min</span></div>
+      </div>
     </div>
   </div>
 </section>
@@ -922,9 +1003,9 @@ footer {
     <div class="mappa-frame">
       <!-- Satellite: maptype=k, zoom ristretto per visuale più vicina -->
       <iframe
-        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1500!2d15.864!3d39.555!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x13194e6f00000001%3A0x1!2sCittadella+del+Capo%2C+87020+Bonifati+CS!5e1!3m2!1sit!2sit!4v1680000000001"
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d800!2d15.8628!3d39.5548!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x13194e6f00000001%3A0x1!2sLungomare+Matteotti%2C+Cittadella+del+Capo!5e1!3m2!1sit!2sit!4v1680000000001"
         allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade"
-        title="Mappa satellitare Cittadella del Capo">
+        title="Mappa satellitare lungomare Cittadella del Capo">
       </iframe>
     </div>
     <a href="https://www.google.com/maps/search/Cittadella+del+Capo+Bonifati+Cosenza+Calabria" target="_blank" rel="noopener" class="mappa-link">Apri in Google Maps</a>
@@ -956,60 +1037,26 @@ function scrollTo_(sel){
   if(el) el.scrollIntoView({behavior:'smooth'});
 }
 
-/* ── GRIGLIA INSTAGRAM ── */
-(function(){
-  const igLink = 'https://www.instagram.com/cittadelladelcapo.cs?igsh=bWprNmRmMmNicjl5&utm_source=qr';
-  // Immagini disponibili nel repo GitHub del profilo
-  const imgs = [
-    'vistaalto.jpg',
-    'cittadella.jpg',
-    'im.jpg',
-    'CIM2825.jpg',
-    'casina.jpg',
-    'chiesa.jpg',
-    'vistaalto.jpg',
-    'cittadella.jpg',
-    'im.jpg'
-  ].map(n => 'https://raw.githubusercontent.com/cittadellacs/imgcittadella/main/' + n);
+/* ── ACCORDION DINTORNI ── */
+function toggleDintorni(){
+  const btn = document.getElementById('dintorniBtn');
+  const extra = document.getElementById('dintorni-extra');
+  const isOpen = extra.classList.toggle('open');
+  btn.classList.toggle('open', isOpen);
+  document.getElementById('dintorniBtnTxt').textContent = isOpen ? 'Nascondi' : 'Scoprile';
+}
 
-  const igSvg = `<svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" fill="white"/></svg>`;
+/* ── TENDINA STORIA ── */
+function toggleStoria(){
+  const btn = document.getElementById('storiaBtn');
+  const extra = document.getElementById('storiaExtra');
+  const isOpen = extra.classList.toggle('open');
+  btn.classList.toggle('open', isOpen);
+  btn.lastChild.textContent = isOpen ? ' Mostra meno' : ' Continua a leggere';
+}
 
-  const grid = document.getElementById('igGrid');
-  if(!grid) return;
-
-  imgs.forEach(src => {
-    const cell = document.createElement('a');
-    cell.href = igLink;
-    cell.target = '_blank';
-    cell.rel = 'noopener';
-    cell.className = 'ig-cell';
-
-    const img = document.createElement('img');
-    img.className = 'ig-cell-img';
-    img.loading = 'lazy';
-    img.decoding = 'async';
-    img.alt = 'Cittadella del Capo';
-
-    // se l'immagine non carica, mostra placeholder
-    img.onerror = function(){
-      this.style.display = 'none';
-      const ph = document.createElement('div');
-      ph.className = 'ig-placeholder';
-      ph.innerHTML = igSvg;
-      cell.insertBefore(ph, cell.firstChild);
-    };
-    img.src = src;
-
-    const ov = document.createElement('div');
-    ov.className = 'ig-cell-overlay';
-    ov.innerHTML = igSvg;
-
-    cell.appendChild(img);
-    cell.appendChild(ov);
-    grid.appendChild(cell);
-  });
-})();
 const sezIDs = ['copertina','zone','luoghi','storia','segreti','chiese','mare','tartarughe','social','dintorni','arrivare'];
+
 const snavItems = document.querySelectorAll('.snav-item');
 
 const sezObs = new IntersectionObserver(entries=>{
