@@ -448,8 +448,13 @@ body {
   border-bottom:1px solid var(--ln);
 }
 @media(max-width:560px){
-  .din-row { grid-template-columns:1fr auto; }
-  .din-desc { display:none; }
+  .din-row {
+    grid-template-columns:1fr auto;
+    grid-template-rows:auto auto;
+  }
+  .din-row .din-n { grid-column:1; grid-row:1; }
+  .din-row .din-d { grid-column:2; grid-row:1; }
+  .din-desc { grid-column:1 / -1; grid-row:2; margin-top:.3rem; }
 }
 .din-row .din-n {
   font-family:'Bebas Neue', sans-serif;
